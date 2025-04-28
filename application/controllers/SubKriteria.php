@@ -75,26 +75,22 @@ class SubKriteria extends MY_Controller
 		}
 	}
 
-function addSubKriteria(){
-	if(isset($_POST) && count($_POST)>0){
-		$dataperiode=array(
-			'idkri'=>$this->input->post('idkri'),
-			'nama_sub'=>$this->input->post('nama_sub'),
-			'indikator'=>$this->input->post('indikator'),
-			'bobot'=>$this->input->post('bobot'),
-			
-		);
-		$cekmasuk=$this->SubKrite->add($dataperiode);
-		// print_r($pass);
-		if ($cekmasuk) {
-			echo "Berhasil Tambah Periode";
-		}
-		else{
-			header('HTTP/1.1 500 Gagal Menambahkan');
+	function addSubKriteria(){
+		if(isset($_POST) && count($_POST) > 0){
+			$dataperiode = array(
+				'idkri' => $this->input->post('idkri'),
+				'nama_sub' => $this->input->post('nama_sub'),
+				'indikator' => $this->input->post('indikator'),
+				'bobot' => $this->input->post('bobot'),
+			);
+			$cekmasuk = $this->SubKrite->add($dataperiode);
+			if ($cekmasuk) {
+				redirect(site_url('SubKriteria')); // <-- ini redirect
+			} else {
+				show_error('Gagal Menambahkan', 500);
+			}
+		} else {
+			$this->load->view('SubKriteria/add_sub');
 		}
 	}
-	else{
-		$this->load->view('SubKriteria/add_sub');
-	}
-}
-}
+}	
