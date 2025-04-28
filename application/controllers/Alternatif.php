@@ -80,18 +80,26 @@ class Alternatif extends MY_Controller
 		else{
 			//ALTER
 			$this->db->select('*');
+			// $this->db->join('nilai_alter', 'nilai_alter.idalter = alters.idalter', 'left');
+			// $this->db->join('kriteria', 'kriteria.idkri = nilai_alter.idkri', 'left');
 			$this->db->from('alters');
-			$this->db->where('idalter', $alter);
+			$this->db->where('alters.idalter', $alter);
 			$data['dataalter']=$this->db->get()->row();
+
 			//PERIODE
 			$data['periode']=$this->db->get('tahun')->result();
+
 			//KRITERIA
 			$this->db->select('*');
 			$this->db->from('nilai_alter');
 			$this->db->where('idalter', $alter);
 			$this->db->join('kriteria', 'nilai_alter.idkri = kriteria.idkri');
 			$this->db->order_by('kriteria.idkri', 'ASC');
+
 			$data['kriteria'] = $this->db->get()->result();
+			$data['subkriteria'] = $this->SubKrite->list();
+
+			// print_r($data);
 			$this->load->view('alters/edit_al',$data);
 		}
 	}

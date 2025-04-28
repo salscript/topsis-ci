@@ -74,7 +74,7 @@
                         <option value="0" selected disabled>Select an Option</option>
                           <?php foreach ($subkriteria as $row) { ?>
                             <?php if ($row->idkri === $key->idkri) { ?>
-                              <option value="<?= $row->bobot ?>">
+                              <option value="<?= $row->bobot ?>" <?= $row->bobot == $key->nilai ? "selected" : null ?>>
                                 <?= $row->nama_sub ?>
                               </option>
                             <?php } ?>

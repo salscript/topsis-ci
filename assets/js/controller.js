@@ -721,7 +721,7 @@ $(document).ready(function () {
       },
       error: function () {
         toastr.options.onHidden = function () {
-          window.location.reload();
+          // window.location.reload();
         };
         toastr.error("Terjadi Kesalahan Silakan Coba lagi", "ERROR");
       },
