@@ -50,8 +50,8 @@
           </select>
         </div>
       </div>
-    <p>
-      <div class="table-responsive">
+      <p>
+    <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
@@ -65,8 +65,22 @@
                 // echo $key->ketkri.' '.$key->nilai.'<br>';
                 ?>
                   <tr>
-                    <td><?=$key->ketkri?></td>
-                    <td><input type="number" class="form-control" name="<?=$key->name?>" min="0" max="10" placeholder="Nilai minimal 0 maksimal 10" value="<?=$key->nilai?>" required></td>
+                    <td>
+                      <?=$key->ketkri?>
+                      <input type="hidden" name="idkrit<?= $key->idkri ?>" class="form-control" id="idkrit<?= $key->idkri ?>" value=<?= $key->idkri ?>>
+                    </td>
+                    <td>
+                      <select name="subkrit<?= $key->idkri ?>" id="subkrit<?= $key->idkri ?>" class="form-control select2bs4 font-weight-normal text-sm" required>
+                        <option value="0" selected disabled>Select an Option</option>
+                          <?php foreach ($subkriteria as $row) { ?>
+                            <?php if ($row->idkri === $key->idkri) { ?>
+                              <option value="<?= $row->bobot ?>">
+                                <?= $row->nama_sub ?>
+                              </option>
+                            <?php } ?>
+                          <?php } ?>
+                      </select>
+                    </td>
                   </tr>
                 <?php
               }
