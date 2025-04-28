@@ -7,7 +7,7 @@
   <div class="box-body">
     <form id="addal" class="form-horizontal" method="post">
       <div class="form-group">
-        <label for="ket" class="col-sm-2 control-label">Keterangannnnn</label>
+        <label for="ket" class="col-sm-2 control-label">Keterangan</label>
         <div class="col-sm-10">
           <input type="text" name="ket" class="form-control" id="ket" placeholder="Isi Nama Objek" required>
         </div>
