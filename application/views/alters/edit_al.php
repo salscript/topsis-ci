@@ -5,7 +5,7 @@
 </div>
 <div class="modal-body">
   <div class="box-body">
-    <form id="edital" class="form-horizontal" method="post">
+  <form id="edital" class="form-horizontal" method="post" action="<?= site_url('alternatif/editalter/' . $dataalter->idalter) ?>">
       <input type="hidden" name="idalt" class="form-control" id="idalt" value="<?=$dataalter->idalter?>" readonly>
       <div class="form-group">
         <label for="ket" class="col-sm-2 control-label">Keterangan</label>
@@ -95,3 +95,4 @@
     </form>
   </div>
 </div>
+
