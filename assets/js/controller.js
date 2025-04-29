@@ -567,7 +567,7 @@ $(document).ready(function () {
     $.ajax({
       type: "GET",
       dataType: "text",
-      url: baseurl + "SubKriteria/editSubKriteria/" + data["idsub"],
+      url: baseurl + "subkriteria/editSubKriteria/" + data["idsub"],
       cache: false,
       success: function (data) {
         if (data) {
@@ -578,7 +578,7 @@ $(document).ready(function () {
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-              url: baseurl + "SubKriteria/editSubKriteria/",
+              url: baseurl + "subkriteria/editSubKriteria/",
               type: "POST",
               data: formData,
               success: function (data) {
@@ -649,7 +649,44 @@ $(document).ready(function () {
     });
   });
 
+  //ADD SUB KRITERIA
+  $("#subKritAdd").click(function () {
+    $.ajax({
+      type: "GET",
+      url: baseurl + "SubKriteria/addSubKriteria",
+      cache: false,
+      success: function (data) {
+        $("#modal_target").html(data);
+        $("#modal").modal("toggle");
+
+        $("form#addsk").submit(function (e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+          $.ajax({
+            url: baseurl + "subkriteria/addSubKriteria",
+            type: "POST",
+            data: formData,
+            success: function (data) {
+              toastr.success(data, "Sukses");
+              tabelSubKriteria.ajax.reload();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              toastr.error(thrownError, "ERROR");
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+          });
+        });
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        toastr.error(thrownError, "ERROR");
+      },
+    });
+  });
+
   //TABEL ALTER
+  // Inisialisasi DataTable
   var tabelalter = $("#tabelalter").DataTable({
     ajax: { url: baseurl + "Alternatif/listalter", dataSrc: "" },
     columns: [
@@ -658,49 +695,49 @@ $(document).ready(function () {
       {
         data: "status",
         render: function (data) {
-          if (data == 1) {
-            return '<button class="btn btn-success btn-block">Aktif</button></td></td>';
-          } else {
-            return '<button class="btn btn-danger btn-block">Non-Aktif</button></td></td>';
-          }
+          return data == 1
+            ? '<button class="btn btn-success btn-block">Aktif</button>'
+            : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
         },
       },
       {
-        data: "",
+        data: null,
         render: function () {
-          return (
-            '<div class="btn-group btn-block">' +
-            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fa fa-gears"></i> Opsi  ' +
-            '<span class="caret"></span>' +
-            '<span class="sr-only"> Toggle Dropdown</span>' +
-            '</button><ul class="dropdown-menu" role="menu">' +
-            '<li><a href="javascript:void(0)" id="edital">Edit</a></li>' +
-            '<li><a href="javascript:void(0)" id="delal">Hapus</a></li>' +
-            "</ul></div>"
-          );
+          return `
+          <div class="btn-group btn-block">
+            <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-gears"></i> Opsi
+              <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" class="btn-edit">Edit</a></li>
+              <li><a href="#" class="btn-delete">Hapus</a></li>
+            </ul>
+          </div>
+        `;
         },
       },
     ],
   });
-  $("#tabelalter tbody").on("click", "#edital", function () {
+
+  $("#tabelalter tbody").on("click", ".btn-edit", function () {
     var data = tabelalter.row($(this).parents("tr")).data();
-    var idnya = data["idalter"];
     $.ajax({
       type: "GET",
-      dataType: "text",
-      url: baseurl + "Alternatif/editalter/" + idnya,
+      url: baseurl + "Alternatif/editalter/" + data["idalter"],
       cache: false,
-      success: function (data) {
-        if (data) {
-          $("#modal_target").html(data);
+      success: function (response) {
+        if (response) {
+          $("#modal_target").html(response);
           $("#modal").modal("toggle");
-          //FORM EDIT DATA USER
+
           $("form#edital").submit(function (e) {
             e.preventDefault();
+            console.log("button edit work");
+
             var formData = new FormData(this);
             $.ajax({
-              url: baseurl + "Alternatif/editalter/" + idnya,
+              url: baseurl + "Alternatif/editalter/",
               type: "POST",
               data: formData,
               success: function (data) {
@@ -721,88 +758,147 @@ $(document).ready(function () {
       },
       error: function () {
         toastr.options.onHidden = function () {
-          // window.location.reload();
+          window.location.reload();
         };
-        toastr.error("Terjadi Kesalahan Silakan Coba lagi", "ERROR");
+        toastr.error("Terjadi Kesalahan Silahkan Coba Lagi", "ERROR");
       },
     });
   });
-  $("#tabelalter tbody").on("click", "#delal", function () {
+
+  /**$("#tabelalter tbody").on("click", ".btn-edit", function () {
     var data = tabelalter.row($(this).parents("tr")).data();
     var idnya = data["idalter"];
+
+    $.ajax({
+      type: "GET",
+      url: baseurl + "Alternatif/editalter/" + idnya,
+      success: function (response) {
+        $("#modal_target").html(response);
+        $("#modal").modal("show");
+
+        console.log(response);
+
+        // Pastikan binding dilakukan setelah modal sepenuhnya ditampilkan
+        $("#modal").one("shown.bs.modal", function () {
+          $("form#edital")
+            .off("submit")
+            .on("submit", function (e) {
+              console.log("edit work");
+              e.preventDefault();
+
+              var form = $(this);
+              var formData = new FormData(this);
+              var submitButton = form.find('input[type="submit"]');
+
+              submitButton.prop("disabled", true);
+
+              $.ajax({
+                type: "POST",
+                url: baseurl + "Alternatif/editalter/" + idnya,
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                  toastr.success(result, "Sukses");
+                  $("#modal").modal("hide");
+                  tabelalter.ajax.reload();
+                },
+                error: function (xhr, status, error) {
+                  toastr.error(error, "ERROR");
+                },
+                complete: function () {
+                  submitButton.prop("disabled", false);
+                },
+              });
+            });
+        });
+      },
+      error: function () {
+        toastr.error("Gagal mengambil data edit.", "ERROR");
+      },
+    });
+  }); */
+
+  // Delete data
+  $("#tabelalter tbody").on("click", ".btn-delete", function () {
+    var data = tabelalter.row($(this).parents("tr")).data();
+    var idnya = data["idalter"];
+
     $.confirm({
       title: "Hapus Data",
       columnClass: "medium",
       content:
-        '<strong style="font-size: 20px;">Apakah Anda yakin ingin menghapus data ini ?</strong>',
+        "<strong style='font-size: 20px;'>Apakah Anda yakin ingin menghapus data ini?</strong>",
       type: "red",
       buttons: {
         hapus: {
-          text: "Ya , Hapus Data",
+          text: "Ya, Hapus Data",
           btnClass: "btn-danger",
           action: function () {
-            var options = {
-              url: baseurl + "Alternatif/removealt",
-              dataType: "text",
+            $.ajax({
               type: "POST",
+              url: baseurl + "Alternatif/removealt",
               data: { idalter: idnya },
-              success: function (data) {
-                toastr.options.onHidden = function () {
-                  tabelalter.ajax.reload();
-                };
-                toastr.success(data, "Sukses");
-                // tabeldosen.ajax.reload();
+              success: function (response) {
+                toastr.success(response, "Sukses");
+                tabelalter.ajax.reload();
               },
-              error: function (xhr, ajaxOptions, thrownError) {
-                toastr.options.onHidden = function () {
-                  window.location.reload();
-                };
-                toastr.error(thrownError, "ERROR");
+              error: function (xhr, status, error) {
+                toastr.error(error, "ERROR");
               },
-            };
-            $.ajax(options);
+            });
           },
         },
         batal: {
           text: "Batal",
           btnClass: "btn-blue",
-          action: function () {},
         },
       },
     });
   });
 
-  //ADD ALTER
-  $("#alteradd").click(function () {
+  // Add data
+  $("#alteradd").on("click", function () {
     $.ajax({
       type: "GET",
       url: baseurl + "Alternatif/addalter",
-      cache: false,
-      success: function (data) {
-        $("#modal_target").html(data);
-        $("#modal").modal("toggle");
-        $("form#addal").submit(function (e) {
-          e.preventDefault();
-          var formData = new FormData(this);
-          $.ajax({
-            url: baseurl + "Alternatif/addalter",
-            type: "POST",
-            data: formData,
-            success: function (data) {
-              toastr.success(data, "Sukses");
-              tabelalter.ajax.reload();
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              toastr.error(thrownError, "ERROR");
-            },
-            cache: false,
-            contentType: false,
-            processData: false,
+      success: function (response) {
+        $("#modal_target").html(response);
+        $("#modal").modal("show");
+
+        $("form#addal")
+          .off("submit")
+          .on("submit", function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var formData = new FormData(this);
+            var submitButton = form.find('input[type="submit"]');
+
+            submitButton.prop("disabled", true);
+
+            $.ajax({
+              type: "POST",
+              url: baseurl + "Alternatif/addalter",
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function (result) {
+                toastr.success(result, "Sukses");
+                $("#modal").modal("hide");
+                tabelalter.ajax.reload();
+              },
+              error: function (xhr, status, error) {
+                toastr.error(error, "ERROR");
+              },
+              complete: function () {
+                submitButton.prop("disabled", false);
+              },
+            });
           });
-        });
       },
-      error: function (xhr, ajaxOptions, thrownError) {
-        toastr.error(thrownError, "ERROR");
+      error: function () {
+        toastr.error("Gagal membuka form tambah.", "ERROR");
       },
     });
   });
