@@ -16,6 +16,7 @@ class User extends MY_Controller
 	public function menu(){
 		$data['periode']=$this->Altperiod->getall('tahun');
 		$data['kriteria'] = $this->Altperiod->getall('kriteria');
+		$data['subkriteria'] = $this->Altperiod->getall('subkriteria');
 		$this->render_page('user/home',$data);
 	}
 	public function ubahpwd(){

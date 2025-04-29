@@ -26,6 +26,33 @@ class SubKrite extends CI_Model {
         }
     }
 
+    function delete($cekperiod){
+        $this->db->select('idsub');
+        $this->db->from('subkriteria');
+        $this->db->where($cekperiod);
+        $available = $this->db->get();
+
+        if ($available->num_rows() == 1) {
+            $this->db->where($cekperiod);
+            $query = $this->db->delete('subkriteria');
+            if ($query) {
+                // Ambil ID dari array $cekperiod untuk ditampilkan dengan aman
+                $id = isset($cekperiod['idsub']) ? $cekperiod['idsub'] : json_encode($cekperiod);
+
+                $this->Fungsi->addhist(array(
+                    'menu' => 'Data Sub kriteria',
+                    'aksi' => 'Hapus Sub Kriteria ID: ' . $id,
+                    'tanggal_aksi' => date('Y-m-d H:i:s'),
+                    'user_name' => $_SESSION['user']
+                ));
+                return true;
+            } else {
+                show_error('Terjadi Kesalahan saat menghapus data');
+            }
+        } else {
+            return false;
+        }
+    }
     function edit($cekperiod){
         $this->db->select('idsub');
         $this->db->from('subkriteria');

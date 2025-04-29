@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambahSubKriteria">
-  + Tambah Sub Kriteria
-</button>
-<!-- Modal Tambah Sub Kriteria -->
-<div class="modal fade" id="modalTambahSubKriteria" tabindex="-1" role="dialog" aria-labelledby="modalTambahSubKriteriaLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form action="<?= site_url('SubKriteria/addSubKriteria') ?>" method="POST">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalTambahSubKriteriaLabel">Tambah Sub Kriteria</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-=======
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">×</span></button>
@@ -32,7 +17,6 @@
                 </option>
               <?php } ?>
           </select>
->>>>>>> bf432050e2247a9f5c26a5fb110009c1bcbe5c93
         </div>
       </div>
       <div class="form-group">
