@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambahSubKriteria">
   + Tambah Sub Kriteria
 </button>
@@ -11,41 +12,51 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+=======
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span></button>
+  <h4 class="modal-title">Add Sub Kriteria</h4>
+</div>
+<div class="modal-body">
+  <div class="box-body">
+    <form id="addsk" class="form-horizontal" method="post">
+      <div class="form-group">
+        <label for="idkri" class="col-sm-3 ">Kriteria</label>
+        <div class="col-sm-9">
+          <select name="idkri" id="idkri" class="form-control">
+            <option value="0" selected disabled>Select an option</option>
+              <?php foreach ($kriteria as $row) { ?>
+                <option value="<?= $row->idkri ?>">
+                  <?= $row->ketkri ?>
+                </option>
+              <?php } ?>
+          </select>
+>>>>>>> bf432050e2247a9f5c26a5fb110009c1bcbe5c93
         </div>
-        
-        <div class="modal-body">
-          
-          <div class="form-group">
-            <label for="idkri">Kriteria</label>
-            <select class="form-control" id="idkri" name="idkri" required>
-              <option value="">-- Pilih Kriteria --</option>
-              <?php foreach($kriteria as $kri): ?>
-                <option value="<?= $kri->idkri ?>"><?= $kri->ketkri ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="nama_sub">Nama Sub Kriteria</label>
-            <input type="text" class="form-control" id="nama_sub" name="nama_sub" required>
-          </div>
-
-          <div class="form-group">
-            <label for="indikator">Indikator</label>
-            <input type="text" class="form-control" id="indikator" name="indikator" required>
-          </div>
-
-          <div class="form-group">
-            <label for="bobot">Bobot</label>
-            <input type="number" class="form-control" id="bobot" name="bobot" step="0.1" min="0" required>
-          </div>
-
+      </div>
+      <div class="form-group">
+        <label for="nama_sub" class="col-sm-3 ">Nama Sub Kriteria</label>
+        <div class="col-sm-9">
+          <input type="text" name="nama_sub" class="form-control" id="nama_sub" required>
         </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-primary">Tambah Data</button>
+      </div>
+      <div class="form-group">
+        <label for="indikator" class="col-sm-3 ">Indikator</label>
+        <div class="col-sm-9">
+          <!-- <input type="number" name="bobot" class="form-control" id="bobot" min="0" max="5" step="0.01" placeholder="contoh 0.25" required> -->
+          <textarea name="indikator" id="indikator" class="form-control" required></textarea>
         </div>
+      </div>
+      <div class="form-group">
+        <label for="bobot" class="col-sm-3 ">Bobot</label>
+        <div class="col-sm-9">
+          <input type="number" name="bobot" class="form-control" id="bobot" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary pull-right" value="Tambah Data">
       </div>
     </form>
   </div>

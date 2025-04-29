@@ -1,6 +1,7 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-    <span aria-hidden="true">×</span></button>
+    <span aria-hidden="true">×</span>
+  </button>
   <h4 class="modal-title">Tambah Alternatif</h4>
 </div>
 <div class="modal-body">
@@ -13,19 +14,19 @@
         </div>
       </div>
       <div class="form-group">
-  <label for="per" class="col-sm-2 control-label">Periode</label>
-  <div class="col-sm-10">
-    <select name="id_tahun" id="per" class="form-control" required>
-      <?php
-        foreach ($periode as $key) {
-          $tgl_mulai = date("Y/m", strtotime($key->tgl_mulai));  // contoh: 2025/01
-          $tgl_selesai = date("d", strtotime($key->tgl_selesai)); // contoh: 31
-          echo "<option value='{$key->id_tahun}'>{$tgl_mulai}-{$tgl_selesai}</option>";
-        }
-      ?>
-    </select>
-  </div>
-</div>
+        <label for="per" class="col-sm-2 control-label">Periode</label>
+        <div class="col-sm-10">
+          <select name="id_tahun" id="per" class="form-control" required>
+            <?php
+              foreach ($periode as $key) {
+                $tgl_mulai = date("Y/m", strtotime($key->tgl_mulai));  // contoh: 2025/01
+                $tgl_selesai = date("d", strtotime($key->tgl_selesai)); // contoh: 31
+                echo "<option value='{$key->id_tahun}'>{$tgl_mulai}-{$tgl_selesai}</option>";
+              }
+            ?>
+          </select>
+        </div>
+      </div>
 
       <div class="form-group">
         <label for="stat" class="col-sm-2 control-label">Status</label>

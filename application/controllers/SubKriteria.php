@@ -30,14 +30,17 @@ class SubKriteria extends MY_Controller
         ->set_content_type('application/json')
         ->set_output(json_encode($test));
 	}
-	function editSubKriteria($idkrit=NULL){
-		if($idkrit==NULL){
+
+	function editSubKriteria($idsubk=NULL){
+		if($idsubk==NULL){
 			if(isset($_POST) && count($_POST) > 0){
-				$id_krit=$this->input->post('idkri');
+				$id_sub=$this->input->post('idsub');
+
 				$cekperiod=array(
-					'idkri'=> $id_krit,
+					'idsub'=> $id_sub,
 				);
-				$available=$this->Krite->edit($cekperiod);
+				$available=$this->SubKrite->edit($cekperiod);
+
 				if($available){
 					echo "Data telah diubah";
 				}
@@ -50,8 +53,13 @@ class SubKriteria extends MY_Controller
 			}
 		}
 		else{
-			$data['dataSubKriteria']=$this->Krite->get($idkrit);
-			$this->load->view('SubKriteria/edit_sub',$data);
+			$this->db->select('*');
+			$this->db->from('kriteria');
+			$this->db->order_by('kriteria.idkri', 'ASC');
+			$data['kriteria'] = $this->db->get()->result();
+
+			$data['datask']=$this->SubKrite->get($idsubk);
+			$this->load->view('subkriteria/edit_sub',$data);
 		}
 	}
 
@@ -75,22 +83,31 @@ class SubKriteria extends MY_Controller
 		}
 	}
 
-	function addSubKriteria(){
-		if(isset($_POST) && count($_POST) > 0){
-			$dataperiode = array(
-				'idkri' => $this->input->post('idkri'),
-				'nama_sub' => $this->input->post('nama_sub'),
-				'indikator' => $this->input->post('indikator'),
-				'bobot' => $this->input->post('bobot'),
-			);
-			$cekmasuk = $this->SubKrite->add($dataperiode);
-			if ($cekmasuk) {
-				redirect(site_url('SubKriteria')); // <-- ini redirect
-			} else {
-				show_error('Gagal Menambahkan', 500);
-			}
-		} else {
-			$this->load->view('SubKriteria/add_sub');
+function addSubKriteria(){
+	if(isset($_POST) && count($_POST)>0){
+		$data=array(
+			'idkri'=>$this->input->post('idkri'),
+			'nama_sub'=>$this->input->post('nama_sub'),
+			'indikator'=>$this->input->post('indikator'),
+			'bobot'=>$this->input->post('bobot'),
+		);
+
+		$cekmasuk=$this->SubKrite->add($data);
+		// print_r($pass);
+		if ($cekmasuk) {
+			echo "Berhasil Tambah Sub Kriteria";
+		}
+		else{
+			header('HTTP/1.1 500 Gagal Menambahkan');
 		}
 	}
-}	
+	else{
+		$this->db->select('*');
+		$this->db->from('kriteria');
+		$this->db->order_by('kriteria.idkri', 'ASC');
+		$data['kriteria'] = $this->db->get()->result();
+
+		$this->load->view('subkriteria/add_sub', $data);
+	}
+}
+}
