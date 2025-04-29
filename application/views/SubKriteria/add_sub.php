@@ -28,7 +28,6 @@
       <div class="form-group">
         <label for="indikator" class="col-sm-3 ">Indikator</label>
         <div class="col-sm-9">
-          <!-- <input type="number" name="bobot" class="form-control" id="bobot" min="0" max="5" step="0.01" placeholder="contoh 0.25" required> -->
           <textarea name="indikator" id="indikator" class="form-control" required></textarea>
         </div>
       </div>
