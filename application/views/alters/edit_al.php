@@ -21,8 +21,8 @@
           <select name="id_tahun" id="per" class="form-control" required>
             <?php
               foreach ($periode as $key) {
-                $tgl_mulai = date("Y/m", strtotime($key->tgl_mulai));
-                $tgl_selesai = date("d", strtotime($key->tgl_selesai));
+                $tgl_mulai = date("Y/m/d", strtotime($key->tgl_mulai));
+                $tgl_selesai = date("Y/m/d", strtotime($key->tgl_selesai));
                 $selected = ($key->id_tahun == $dataalter->id_tahun) ? 'selected' : '';
                 echo "<option value='{$key->id_tahun}' {$selected}>{$tgl_mulai}-{$tgl_selesai}</option>";
               }

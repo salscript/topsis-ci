@@ -59,7 +59,7 @@
                                       ?>
                                     <option value="<?= $key->id_tahun ?>" selected>
                                         <?php
-                                        echo date("Y/m", strtotime($key->tgl_mulai)) . '-' . date("Y/m", strtotime($key->tgl_selesai));
+                                        echo date("Y/m/d", strtotime($key->tgl_mulai)) . '-' . date("Y/m/d", strtotime($key->tgl_selesai));
 
                                         ?>
                                     </option>

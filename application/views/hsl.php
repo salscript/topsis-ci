@@ -12,8 +12,8 @@
       <select class="form-control" id="perid">
         <?php
           foreach ($listperiod as $key) {
-            $tgl_mulai = date('Y/m', strtotime($key->tgl_mulai)); // contoh: 2025/01
-            $tgl_selesai = date('d', strtotime($key->tgl_selesai)); // contoh: 31
+            $tgl_mulai = date('Y/m/d', strtotime($key->tgl_mulai)); // contoh: 2025/01
+            $tgl_selesai = date('Y/m/d', strtotime($key->tgl_selesai)); // contoh: 31
             echo "<option value='{$key->id_tahun}'>{$tgl_mulai} s/d {$tgl_selesai}</option>";
           }
         ?>

@@ -737,7 +737,7 @@ $(document).ready(function () {
 
             var formData = new FormData(this);
             $.ajax({
-              url: baseurl + "Alternatif/editalter/",
+              url: baseurl + "Alternatif/editalter/", 
               type: "POST",
               data: formData,
               success: function (data) {
