@@ -65,9 +65,9 @@ class SubKriteria extends MY_Controller
 
 	function removeSubKriteria(){
 		if(isset($_POST) && count($_POST) > 0){
-			$idkri=$this->input->post('subkri');
+			$idsub=$this->input->post('subkri');
 			$cekperiod=array(
-				'idkri'=> $idkri,
+				'idsub'=> $idsub,
 			);
 			$available=$this->SubKrite->delete($cekperiod);
 			// print_r($_POST);
