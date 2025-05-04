@@ -64,7 +64,7 @@
                     </td>
                     <td>
                       <select name="subkrit<?= $key->idkri ?>" id="subkrit<?= $key->idkri ?>" class="form-control select2bs4 font-weight-normal text-sm" required>
-                        <option value="0" selected disabled>Select an option</option>
+                        <option value="" selected disabled>Select an option</option>
                           <?php foreach ($subkriteria as $row) { ?>
                             <?php if ($row->idkri === $key->idkri) { ?>
                               <option value="<?= $row->bobot ?>">

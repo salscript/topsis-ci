@@ -199,7 +199,8 @@ $(document).ready(function () {
       data: formData,
       success: function (data) {
         toastr.success(data, "Sukses");
-        window.location = baseurl + "logout";
+        window.location.reload();
+        // window.location = baseurl + "logout";
       },
       error: function (xhr, ajaxOptions, thrownError) {
         toastr.error(thrownError, "ERROR");
@@ -214,6 +215,25 @@ $(document).ready(function () {
     var formData = new FormData(this);
     $.ajax({
       url: baseurl + "home/ppwd",
+      type: "POST",
+      data: formData,
+      success: function (data) {
+        toastr.success(data, "Sukses");
+        window.location.reload();
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        toastr.error(thrownError, "ERROR");
+      },
+      cache: false,
+      contentType: false,
+      processData: false,
+    });
+  });
+  $("form#gantipass-opt").submit(function (e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      url: baseurl + "user/ppwd",
       type: "POST",
       data: formData,
       success: function (data) {
@@ -899,6 +919,41 @@ $(document).ready(function () {
       },
       error: function () {
         toastr.error("Gagal membuka form tambah.", "ERROR");
+      },
+    });
+  });
+
+  $("form#addal-opt").submit(function (e) {
+    e.preventDefault();
+
+    var form = $(this);
+    var formData = new FormData(this);
+    var submitButton = form.find('input[type="submit"]');
+
+    submitButton.prop("disabled", true);
+
+    // for (var pair of formData.entries()) {
+    //   console.log(pair[0] + ": " + pair[1]);
+    // }
+
+    $.ajax({
+      type: "POST",
+      url: baseurl + "Alternatif/addalter",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (result) {
+        form[0].reset();
+        // form.find("select").val(null).trigger("change");
+        $("select[id^='subkrit']").val("").trigger("change");
+
+        toastr.success(result, "Sukses");
+      },
+      error: function (xhr, status, error) {
+        toastr.error(error, "ERROR");
+      },
+      complete: function () {
+        submitButton.prop("disabled", false);
       },
     });
   });

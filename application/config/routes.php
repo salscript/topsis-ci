@@ -21,5 +21,6 @@ $route['useredit/(:any)']='Usermanager/edituser/$1';
 $route['history']='Admin/histo';
 $route['logout']='Desa/lgout';
 $route['user/home']='User/menu';
+$route['user/ppwd']='User/prosespwd';
 $route['setting']='Admin/setting';
 $route['user/foto/(:num)']="User/ubahfoto/$1";

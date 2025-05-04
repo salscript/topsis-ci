@@ -7,6 +7,7 @@ class User extends MY_Controller
 	var $table;
 	function __construct(){
 	  parent::__construct();
+	  $this->load->model('SubKrite');
 	  if (empty($_SESSION['user'])) {
 	  	redirect('logout');
 	  }else{
@@ -16,10 +17,11 @@ class User extends MY_Controller
 	public function menu(){
 		$data['periode']=$this->Altperiod->getall('tahun');
 		$data['kriteria'] = $this->Altperiod->getall('kriteria');
+		$data['subkriteria'] = $this->SubKrite->list();
 		$this->render_page('user/home',$data);
 	}
 	public function ubahpwd(){
-		$this->render_page('cpass');
+		$this->render_page('user/cpass');
 	}
 	public function prosespwd()
 	{
@@ -69,6 +71,7 @@ class User extends MY_Controller
 					}
 					$updatedat = $this->Altperiod->edit($this->table, $datauser, $cekuser);
 					if ($updatedat) {
+						$this->session->set_userdata('foto', $imgurl);
 						echo "Foto di perbaharui, anda akan logout";
 					} else {
 						header('HTTP/1.1 500 Terjadi Kesalahan 3');
