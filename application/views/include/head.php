@@ -120,97 +120,89 @@
                 </div>
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree" id="listmenu">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li>
-                        <a href="<?php
-                                  if ($_SESSION['role'] == 'OPERATOR') {
-                                    echo base_url('User/menu');
-                                  } else {
-                                    echo base_url('Admin/menu');
-                                  }
-                                  ?>" id="utama">
-                            <i class="fa fa-dashboard"></i> <span>Home</span>
-                        </a>
-                    </li>
-                    <?php
-                    if ($_SESSION['role'] != 'PIMPINAN') {
-                      ?>
-                    <li>
-                        <a href="<?= base_url('Periode') ?>" id="periode">
-                            <i class="fa fa-files-o"></i>
-                            <span>Periode</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('Kriteria') ?>" id="kriteria">
-                            <i class="fa fa-th"></i> <span>Data Kriteria</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('SubKriteria') ?>" id="subKriteria">
-                            <i class="fa fa-th"></i> <span>Data Sub-Kriteria</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('Alternatif') ?>" id="alternatif">
-                            <i class="fa fa-pie-chart"></i>
-                            <span>Data Alternatif</span>
-                        </a>
-                    </li>
-                    <?php
+    <li class="header">MAIN NAVIGATION</li>
+    <li>
+        <a href="<?php
+            if ($_SESSION['role'] == 'OPERATOR') {
+                echo base_url('User/menu');
+            } else {
+                echo base_url('Admin/menu');
+            }
+        ?>" id="utama">
+            <i class="fa fa-dashboard"></i> <span>Home</span>
+        </a>
+    </li>
 
-                  }
-                  if ($_SESSION['role'] != 'OPERATOR') {
-                    ?>
-                    <li>
+    <?php
+    if ($_SESSION['role'] == 'ADMIN' || $_SESSION['role'] == 'OPERATOR' || $_SESSION['role'] == 'SUPPLIER') {
+    ?>
+        <li>
+            <a href="<?= base_url('Periode') ?>" id="periode">
+                <i class="fa fa-files-o"></i> <span>Periode</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= base_url('Kriteria') ?>" id="kriteria">
+                <i class="fa fa-th"></i> <span>Data Kriteria</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= base_url('SubKriteria') ?>" id="subKriteria">
+                <i class="fa fa-th"></i> <span>Data Sub-Kriteria</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= base_url('Alternatif') ?>" id="alternatif">
+                <i class="fa fa-pie-chart"></i> <span>Data Alternatif</span>
+            </a>
+        </li>
+    <?php } ?>
+
+    <?php if ($_SESSION['role'] != 'OPERATOR' &&$_SESSION['role'] != 'SUPPLIER') { ?>
+        <li>
                         <a href="<?= base_url('Admin/Hasil') ?>" id="seleksi">
                             <i class="fa fa-laptop"></i>
                             <span>Perhitungan</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?= base_url('Admin/Hasilhitung') ?>">
-                            <i class="fa fa-edit"></i> <span>Hasil Ranking</span>
-                        </a>
-                    </li>
-                    <?php
+        <li>
+            <a href="<?= base_url('Admin/Hasilhitung') ?>">
+                <i class="fa fa-edit"></i> <span>Hasil Ranking</span>
+            </a>
+        </li>
+    <?php } ?>
 
-                  }
+    <?php if ($_SESSION['role'] == "ADMIN") { ?>
+        <li>
+            <a href="<?= base_url('users') ?>">
+                <i class="fa fa-users"></i> <span>Pengaturan User</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= base_url('setting') ?>">
+                <i class="fa fa-cog"></i> <span>Pengaturan Sistem</span>
+            </a>
+        </li>
+    <?php } ?>
 
-                  if ($_SESSION['role'] == "ADMIN") {
-                    ?>
-                    <li>
-                        <a href="<?= base_url('users') ?>">
-                            <i class="fa fa-users"></i> <span>Pengaturan User</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('setting') ?>">
-                            <i class="fa fa-cog"></i> <span>Pengaturan Sistem</span>
-                        </a>
-                    </li>
-                    <?php
+    <li>
+        <a href="<?php
+            if ($_SESSION['role'] == 'OPERATOR') {
+                echo base_url('User/ubahpwd');
+            } else {
+                echo base_url('Admin/ubahpwd');
+            }
+        ?>" id="cpass">
+            <i class="fa fa-key"></i> <span>Ubah Password</span>
+        </a>
+    </li>
+    <li>
+        <a href="<?= base_url('home/logout') ?>">
+            <i class="fa fa-sign-out"></i> <span>Logout</span>
+        </a>
+    </li>
+</ul>
 
-                  }
-                  ?>
-
-                    <li>
-                        <a href="<?php
-                                  if ($_SESSION['role'] == 'OPERATOR') {
-                                    echo base_url('User/ubahpwd');
-                                  } else {
-                                    echo base_url('Admin/ubahpwd');
-                                  }
-                                  ?>" id="cpass">
-                            <i class="fa fa-key"></i> <span>Ubah Password</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?= base_url('home/logout') ?>">
-                            <i class="fa fa-sign-out"></i> <span>Logout</span>
-                        </a>
-                    </li>
-                </ul>
             </section>
             <!-- /.sidebar -->
         </aside>

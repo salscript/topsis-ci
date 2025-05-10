@@ -11,12 +11,15 @@
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-body" id="isikonten">
-              
-              <!-- Tombol Tambah Sub Kriteria -->
-              <a href="javascript:void(0)" class="btn btn-primary btn-block" id="subKritAdd">
-                <i class="fa fa-plus-circle"></i> Tambah Sub Kriteria
-              </a>
-              
+            <?php
+            $role = $this->session->userdata('role');
+if ($role == 'ADMIN' || $role == 'OPERTAOR'):
+?>
+    <a href="javascript:void(0)" class="btn btn-primary btn-block" id="subKritAdd">
+        <i class="fa fa-plus-circle"></i> Tambah Sub Kriteria
+    </a>
+<?php endif; ?>
+            
               <!-- Tabel Sub Kriteria -->
               <div class="table-responsive">
                   <table class="table table-bordered table-hover" id="tabelSubKriteria">

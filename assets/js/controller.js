@@ -199,7 +199,8 @@ $(document).ready(function () {
       data: formData,
       success: function (data) {
         toastr.success(data, "Sukses");
-        window.location = baseurl + "logout";
+        window.location.reload();
+        // window.location = baseurl + "logout";
       },
       error: function (xhr, ajaxOptions, thrownError) {
         toastr.error(thrownError, "ERROR");
@@ -228,8 +229,28 @@ $(document).ready(function () {
       processData: false,
     });
   });
+  $("form#gantipass-opt").submit(function (e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+      url: baseurl + "user/ppwd",
+      type: "POST",
+      data: formData,
+      success: function (data) {
+        toastr.success(data, "Sukses");
+        window.location.reload();
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        toastr.error(thrownError, "ERROR");
+      },
+      cache: false,
+      contentType: false,
+      processData: false,
+    });
+  });
 
   //TABEL PERIODE
+
   var tabelperiode = $("#tabelperiode").DataTable({
     ajax: { url: baseurl + "Periode/listperiode", dataSrc: "" },
     columns: [
@@ -237,23 +258,21 @@ $(document).ready(function () {
       { data: "tgl_mulai" },
       { data: "tgl_selesai" },
       {
-        data: "",
+        "data": "",
         render: function () {
-          return (
-            '<div class="btn-group btn-block">' +
-            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fa fa-gears"></i> Opsi  ' +
-            '<span class="caret"></span>' +
-            '<span class="sr-only"> Toggle Dropdown</span>' +
-            '</button><ul class="dropdown-menu" role="menu">' +
-            '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
-            '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
-            "</ul></div>"
-          );
-        },
-      },
-    ],
-  });
+            return '<div class="btn-group btn-block">' +
+                '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+                '<i class="fa fa-gears"></i> Opsi  ' +
+                '<span class="caret"></span>' +
+                '<span class="sr-only"> Toggle Dropdown</span>' +
+                '</button><ul class="dropdown-menu" role="menu">' +
+                '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
+                '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
+                '</ul></div>'
+        }
+    },
+]
+});
   $("#tabelperiode tbody").on("click", "#editp", function () {
     var data = tabelperiode.row($(this).parents("tr")).data();
     $.ajax({
@@ -899,6 +918,41 @@ $(document).ready(function () {
       },
       error: function () {
         toastr.error("Gagal membuka form tambah.", "ERROR");
+      },
+    });
+  });
+
+  $("form#addal-opt").submit(function (e) {
+    e.preventDefault();
+
+    var form = $(this);
+    var formData = new FormData(this);
+    var submitButton = form.find('input[type="submit"]');
+
+    submitButton.prop("disabled", true);
+
+    // for (var pair of formData.entries()) {
+    //   console.log(pair[0] + ": " + pair[1]);
+    // }
+
+    $.ajax({
+      type: "POST",
+      url: baseurl + "Alternatif/addalter",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (result) {
+        form[0].reset();
+        // form.find("select").val(null).trigger("change");
+        $("select[id^='subkrit']").val("").trigger("change");
+
+        toastr.success(result, "Sukses");
+      },
+      error: function (xhr, status, error) {
+        toastr.error(error, "ERROR");
+      },
+      complete: function () {
+        submitButton.prop("disabled", false);
       },
     });
   });

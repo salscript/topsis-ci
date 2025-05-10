@@ -11,7 +11,14 @@
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-body" id="isikonten">
-              <a href="javascript:void(0)" class="btn btn-primary btn-block" id="kritadd"><i class="fa fa-plus-circle"></i> Tambah Kriteria</a>
+            <?php
+            $role = $this->session->userdata('role');
+if ($role == 'ADMIN' || $role == 'OPERATOR'):
+?>
+    <a href="javascript:void(0)" class="btn btn-primary btn-block" id="kritadd">
+        <i class="fa fa-plus-circle"></i> Tambah Kriteria
+    </a>
+<?php endif; ?>
             <p></p>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="tabelkriteria">

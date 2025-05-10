@@ -34,6 +34,9 @@ class Periode extends MY_Controller
 	}
 
 	function editperiode($idperiode=NULL){
+		if ($_SESSION['role'] == 'SUPPLIER') {
+			show_error('Anda tidak memiliki akses menambah data.', 403, 'Akses Ditolak');
+		}
 		if($idperiode==NULL){
 			if(isset($_POST) && count($_POST) > 0){
 				$id_tahun=$this->input->post('idtahun');
@@ -61,6 +64,9 @@ class Periode extends MY_Controller
 	}
 
 	function removeperiode(){
+		if ($_SESSION['role'] == 'SUPPLIER') {
+			show_error('Anda tidak memiliki akses menambah data.', 403, 'Akses Ditolak');
+		}
 		if(isset($_POST) && count($_POST) > 0){
 			$idtahun=$this->input->post('idtahun');
 			$available=$this->Altperiod->del($this->table,$idtahun);
@@ -77,6 +83,10 @@ class Periode extends MY_Controller
 	}
 
 	function addperiode(){
+		if ($_SESSION['role'] == 'SUPPLIER') {
+			show_error('Anda tidak memiliki akses menambah data.', 403, 'Akses Ditolak');
+		}
+		
 		if(isset($_POST) && count($_POST)>0){
 			$dataperiode=array(
 				'tgl_mulai'=>$this->input->post('tglawal'),

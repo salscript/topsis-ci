@@ -17,7 +17,7 @@
         <div class="col-sm-10">
           <select name="role" id="hak" class="form-control">
             <?php
-              $role=array('OPERATOR');
+              $role=array('OPERATOR', 'SUPPLIER');
               foreach ($role as $key=>$value) {
                   ?>
                   <option value="<?=$value?>"><?=$value?></option>
