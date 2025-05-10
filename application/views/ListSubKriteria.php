@@ -12,13 +12,13 @@
           <div class="panel panel-default">
             <div class="panel-body" id="isikonten">
             <?php
-            $role = $this->session->userdata('role');
-if ($role == 'ADMIN' || $role == 'OPERTAOR'):
-?>
-    <a href="javascript:void(0)" class="btn btn-primary btn-block" id="subKritAdd">
-        <i class="fa fa-plus-circle"></i> Tambah Sub Kriteria
-    </a>
-<?php endif; ?>
+            // $role = $this->session->userdata('role');
+            if ($this->session->userdata('role') == 'ADMIN' || $this->session->userdata('role') == 'OPERTAOR'):
+            ?>
+                <a href="javascript:void(0)" class="btn btn-primary btn-block" id="subKritAdd">
+                    <i class="fa fa-plus-circle"></i> Tambah Sub Kriteria
+                </a>
+            <?php endif; ?>
             
               <!-- Tabel Sub Kriteria -->
               <div class="table-responsive">
@@ -30,7 +30,13 @@ if ($role == 'ADMIN' || $role == 'OPERTAOR'):
                               <th>Nama</th>
                               <th>Indikator</th>
                               <th>Bobot</th>
-                              <th>Opsi</th>
+                              <?php 
+                                if($_SESSION['role'] != 'SUPPLIER') {
+                              ?>
+                                <th>Opsi</th>
+                              <?php 
+                                }
+                              ?>
                           </tr>
                       </thead>
                       <tbody>
@@ -43,4 +49,8 @@ if ($role == 'ADMIN' || $role == 'OPERTAOR'):
         </div>
     </div>
 </section>
+<script>
+  const role = <?= json_encode($role); ?>;
+  console.log(role);
+</script>
 <!-- /.content -->

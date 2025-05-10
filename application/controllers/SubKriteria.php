@@ -13,7 +13,8 @@ class SubKriteria extends MY_Controller
 	}
 
 	public function index(){
-		$this->render_page('ListSubKriteria');
+		$data['role'] = $this->session->userdata('role');
+		$this->render_page('ListSubKriteria', $data);
 	}
 
 	function listSubKriteria(){

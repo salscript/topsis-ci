@@ -30,7 +30,14 @@ if ($role == 'ADMIN' || $role == 'OPERATOR'):
                                 <th>Atribut</th>
                                 <th>Kode</th>
                                 <th>Status</th>
-                                <th>Opsi</th>
+                                <!-- <?php 
+                                    if($_SESSION['role'] != 'SUPPLIER') {
+                                ?>
+                                    <th>Opsi</th>
+                                    <?php 
+                                    }
+                                    ?> -->
+                                    <th>Opsi</th>
                             </tr>
                         </thead>
                         <tbody>

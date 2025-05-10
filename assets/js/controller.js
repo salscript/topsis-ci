@@ -258,21 +258,23 @@ $(document).ready(function () {
       { data: "tgl_mulai" },
       { data: "tgl_selesai" },
       {
-        "data": "",
+        data: "",
         render: function () {
-            return '<div class="btn-group btn-block">' +
-                '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-                '<i class="fa fa-gears"></i> Opsi  ' +
-                '<span class="caret"></span>' +
-                '<span class="sr-only"> Toggle Dropdown</span>' +
-                '</button><ul class="dropdown-menu" role="menu">' +
-                '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
-                '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
-                '</ul></div>'
-        }
-    },
-]
-});
+          return (
+            '<div class="btn-group btn-block">' +
+            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+            '<i class="fa fa-gears"></i> Opsi  ' +
+            '<span class="caret"></span>' +
+            '<span class="sr-only"> Toggle Dropdown</span>' +
+            '</button><ul class="dropdown-menu" role="menu">' +
+            '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
+            '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
+            "</ul></div>"
+          );
+        },
+      },
+    ],
+  });
   $("#tabelperiode tbody").on("click", "#editp", function () {
     var data = tabelperiode.row($(this).parents("tr")).data();
     $.ajax({
@@ -431,6 +433,7 @@ $(document).ready(function () {
       },
     ],
   });
+
   $("#tabelkriteria tbody").on("click", "#editk", function () {
     var data = tabelkriteria.row($(this).parents("tr")).data();
     $.ajax({
@@ -555,32 +558,110 @@ $(document).ready(function () {
 
   //TABEL SUB KRITERIA
   //   console.log("sub kriteria work");
+  // var tabelSubKriteria = $("#tabelSubKriteria").DataTable({
+  //   ajax: { url: baseurl + "SubKriteria/listSubKriteria", dataSrc: "" },
+  //   columns: [
+  //     { data: "nomor" },
+  //     { data: "idkri" },
+  //     { data: "nama_sub" },
+  //     { data: "indikator" },
+  //     { data: "bobot" },
+  //     {
+  //       data: "",
+  //       render: function () {
+  //         return (
+  //           '<div class="btn-group btn-block">' +
+  //           '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+  //           '<i class="fa fa-gears"></i> Opsi  ' +
+  //           '<span class="caret"></span>' +
+  //           '<span class="sr-only"> Toggle Dropdown</span>' +
+  //           '</button><ul class="dropdown-menu" role="menu">' +
+  //           '<li><a href="javascript:void(0)" id="editsk">Edit</a></li>' +
+  //           '<li><a href="javascript:void(0)" id="delsk">Delete</a></li>' +
+  //           "</ul></div>"
+  //         );
+  //       },
+  //     },
+  //   ],
+  // });
+
+  // let columnSubKriteria = [
+  //   { data: "nomor" },
+  //   { data: "idkri" },
+  //   { data: "nama_sub" },
+  //   { data: "indikator" },
+  //   { data: "bobot" },
+  //   {
+  //     data: "",
+  //     render: function () {
+  //       return (
+  //         '<div class="btn-group btn-block">' +
+  //         '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+  //         '<i class="fa fa-gears"></i> Opsi  ' +
+  //         '<span class="caret"></span>' +
+  //         '<span class="sr-only"> Toggle Dropdown</span>' +
+  //         '</button><ul class="dropdown-menu" role="menu">' +
+  //         '<li><a href="javascript:void(0)" id="editsk">Edit</a></li>' +
+  //         '<li><a href="javascript:void(0)" id="delsk">Delete</a></li>' +
+  //         "</ul></div>"
+  //       );
+  //     },
+  //   },
+  // ];
+
+  // if (role == "ADMIN" || role == "OPERATOR") {
+  //   columnSubKriteria.push({
+  //     data: null,
+  //     render: function () {
+  //       return `
+  //         <div class="btn-group btn-block">
+  //           <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+  //             <i class="fa fa-gears"></i> Opsi
+  //             <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+  //           </button>
+  //           <ul class="dropdown-menu" role="menu">
+  //             <li><a href="#" class="btn-edit">Edit</a></li>
+  //             <li><a href="#" class="btn-delete">Hapus</a></li>
+  //           </ul>
+  //         </div>
+  //       `;
+  //     },
+  //   });
+  // }
+
+  let columnSubKriteria = [
+    { data: "nomor" },
+    { data: "idkri" },
+    { data: "nama_sub" },
+    { data: "indikator" },
+    { data: "bobot" },
+  ];
+
+  if (role == "ADMIN" || role == "OPERATOR") {
+    columnSubKriteria.push({
+      data: null,
+      render: function () {
+        return `
+          <div class="btn-group btn-block">
+            <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-gears"></i> Opsi
+              <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" class="btn-edit">Edit</a></li>
+              <li><a href="#" class="btn-delete">Hapus</a></li>
+            </ul>
+          </div>
+        `;
+      },
+    });
+  }
+
   var tabelSubKriteria = $("#tabelSubKriteria").DataTable({
     ajax: { url: baseurl + "SubKriteria/listSubKriteria", dataSrc: "" },
-    columns: [
-      { data: "nomor" },
-      { data: "idkri" },
-      { data: "nama_sub" },
-      { data: "indikator" },
-      { data: "bobot" },
-      {
-        data: "",
-        render: function () {
-          return (
-            '<div class="btn-group btn-block">' +
-            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fa fa-gears"></i> Opsi  ' +
-            '<span class="caret"></span>' +
-            '<span class="sr-only"> Toggle Dropdown</span>' +
-            '</button><ul class="dropdown-menu" role="menu">' +
-            '<li><a href="javascript:void(0)" id="editsk">Edit</a></li>' +
-            '<li><a href="javascript:void(0)" id="delsk">Delete</a></li>' +
-            "</ul></div>"
-          );
-        },
-      },
-    ],
+    columns: columnSubKriteria,
   });
+
   $("#tabelSubKriteria tbody").on("click", "#editsk", function () {
     var data = tabelSubKriteria.row($(this).parents("tr")).data();
     $.ajax({
@@ -743,6 +824,7 @@ $(document).ready(function () {
   //     },
   //   ],
   // });
+
   let columns = [
     { data: "nomor" },
     { data: "ket" },
@@ -753,10 +835,10 @@ $(document).ready(function () {
           ? '<button class="btn btn-success btn-block">Aktif</button>'
           : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
       },
-    }
+    },
   ];
-  
-  if (role == 'ADMIN' || role == 'OPERATOR') {
+
+  if (role == "ADMIN" || role == "OPERATOR") {
     columns.push({
       data: null,
       render: function () {
@@ -775,13 +857,11 @@ $(document).ready(function () {
       },
     });
   }
-  
+
   var tabelalter = $("#tabelalter").DataTable({
     ajax: { url: baseurl + "Alternatif/listalter", dataSrc: "" },
     columns: columns,
   });
-
-  
 
   $("#tabelalter tbody").on("click", ".btn-edit", function () {
     var data = tabelalter.row($(this).parents("tr")).data();
@@ -800,7 +880,7 @@ $(document).ready(function () {
 
             var formData = new FormData(this);
             $.ajax({
-              url: baseurl + "Alternatif/editalter/", 
+              url: baseurl + "Alternatif/editalter/",
               type: "POST",
               data: formData,
               success: function (data) {

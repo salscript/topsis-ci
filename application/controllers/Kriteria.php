@@ -12,9 +12,14 @@ class Kriteria extends MY_Controller
 	  }
 	}
 
+	// public function index(){
+	// 	$data['role'] = $this->session->userdata('role');
+	// 	$this->render_page('Listkriteria');
+	// }
+
 	public function index(){
 		$data['role'] = $this->session->userdata('role');
-		$this->render_page('Listkriteria');
+		$this->render_page('Listkriteria', $data);
 	}
 
 	function listkriteria(){
