@@ -13,6 +13,7 @@ class Kriteria extends MY_Controller
 	}
 
 	public function index(){
+		$data['role'] = $this->session->userdata('role');
 		$this->render_page('Listkriteria');
 	}
 

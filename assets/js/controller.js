@@ -706,23 +706,61 @@ $(document).ready(function () {
 
   //TABEL ALTER
   // Inisialisasi DataTable
-  var tabelalter = $("#tabelalter").DataTable({
-    ajax: { url: baseurl + "Alternatif/listalter", dataSrc: "" },
-    columns: [
-      { data: "nomor" },
-      { data: "ket" },
-      {
-        data: "status",
-        render: function (data) {
-          return data == 1
-            ? '<button class="btn btn-success btn-block">Aktif</button>'
-            : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
-        },
+  // var tabelalter = $("#tabelalter").DataTable({
+  //   ajax: { url: baseurl + "Alternatif/listalter", dataSrc: "" },
+  //   columns: [
+  //     { data: "nomor" },
+  //     { data: "ket" },
+  //     {
+  //       data: "status",
+  //       render: function (data) {
+  //         return data == 1
+  //           ? '<button class="btn btn-success btn-block">Aktif</button>'
+  //           : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
+  //       },
+  //     },
+  //     {
+  //       data: null,
+  //       render: function () {
+  //         console.log(role);
+  //         if (role == 'ADMIN' || role == 'OPERATOR') {
+  //           return `
+  //             <div class="btn-group btn-block">
+  //               <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+  //                 <i class="fa fa-gears"></i> Opsi
+  //                 <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+  //               </button>
+  //               <ul class="dropdown-menu" role="menu">
+  //                 <li><a href="#" class="btn-edit">Edit</a></li>
+  //                 <li><a href="#" class="btn-delete">Hapus</a></li>
+  //               </ul>
+  //             </div>
+  //           `;
+  //         } else {
+  //           return ""; // no buttons for other roles
+  //         }
+  //       },
+  //     },
+  //   ],
+  // });
+  let columns = [
+    { data: "nomor" },
+    { data: "ket" },
+    {
+      data: "status",
+      render: function (data) {
+        return data == 1
+          ? '<button class="btn btn-success btn-block">Aktif</button>'
+          : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
       },
-      {
-        data: null,
-        render: function () {
-          return `
+    }
+  ];
+  
+  if (role == 'ADMIN' || role == 'OPERATOR') {
+    columns.push({
+      data: null,
+      render: function () {
+        return `
           <div class="btn-group btn-block">
             <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-gears"></i> Opsi
@@ -734,10 +772,16 @@ $(document).ready(function () {
             </ul>
           </div>
         `;
-        },
       },
-    ],
+    });
+  }
+  
+  var tabelalter = $("#tabelalter").DataTable({
+    ajax: { url: baseurl + "Alternatif/listalter", dataSrc: "" },
+    columns: columns,
   });
+
+  
 
   $("#tabelalter tbody").on("click", ".btn-edit", function () {
     var data = tabelalter.row($(this).parents("tr")).data();

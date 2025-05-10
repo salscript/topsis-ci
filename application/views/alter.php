@@ -15,14 +15,20 @@
             <p></p>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="tabelalter">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Keterangan</th>
-                                <th>Status</th>
-                                <th>Opsi</th>
-                            </tr>
-                        </thead>
+                    <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Keterangan</th>
+                          <th>Status</th>
+                          <?php 
+                            if($_SESSION['role'] != 'SUPPLIER') {
+                          ?>
+                            <th>Opsi</th>
+                          <?php 
+                            }
+                          ?>
+                        </tr>
+                      </thead>
                         <tbody>
                         </tbody>
                     </table>
@@ -32,4 +38,8 @@
         </div>
     </div>
 </section>
+<script>
+  const role = <?= json_encode($role); ?>;
+  console.log(role);
+</script>
 <!-- /.content -->

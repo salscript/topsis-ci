@@ -13,7 +13,8 @@ class Alternatif extends MY_Controller
 	}
 
 	public function index(){
-		$this->render_page('alter');
+		$data['role'] = $this->session->userdata('role');
+		$this->render_page('alter', $data);
 	}
 
 	function listalter(){
@@ -365,6 +366,7 @@ class Alternatif extends MY_Controller
 			$this->db->order_by('kriteria.idkri', 'ASC');
 			$data['kriteria'] = $this->db->get()->result();
 			$data['subkriteria'] = $this->SubKrite->list();
+			$data['role'] = $this->session->userdata('role');
 			// print_r($data);
 			$this->load->view('alters/add_al',$data);
 		}
