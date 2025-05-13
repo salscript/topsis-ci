@@ -10,7 +10,7 @@
         <input type="hidden" name="idkri" value="<?=$datakriteria->idkri?>">
         <label for="ket" class="col-sm-2 control-label">Keterangan</label>
         <div class="col-sm-10">
-          <input type="text" name="ket" class="form-control" id="ket" value="<?=$datakriteria->ketkri?>">
+          <input type="text" name="ket" class="form-control" id="ket" value="<?=$datakriteria->ketkri?>" required>
         </div>
       </div>
       <div class="form-group">
@@ -22,13 +22,13 @@
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Kode</label>
         <div class="col-sm-10">
-          <input type="text" name="name" class="form-control" id="name" value="<?=$datakriteria->name?>">
+          <input type="text" name="name" class="form-control" id="name" value="<?=$datakriteria->name?>" required>
         </div>
       </div>
       <div class="form-group">
         <label for="att" class="col-sm-2 control-label">Atribut</label>
         <div class="col-sm-10">
-          <select name="att" id="att" class="form-control">
+          <select name="att" id="att" class="form-control" required>
             <?php
               $role1=array('benefit','cost');
               foreach ($role1 as $key=>$value) {

@@ -30,14 +30,13 @@ if ($role == 'ADMIN' || $role == 'OPERATOR'):
                                 <th>Atribut</th>
                                 <th>Kode</th>
                                 <th>Status</th>
-                                <!-- <?php 
-                                    if($_SESSION['role'] != 'SUPPLIER') {
-                                ?>
-                                    <th>Opsi</th>
-                                    <?php 
-                                    }
-                                    ?> -->
-                                    <th>Opsi</th>
+                                <?php 
+                            if($_SESSION['role'] != 'SUPPLIER') {
+                          ?>
+                            <th>Opsi</th>
+                          <?php 
+                            }
+                          ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,4 +48,8 @@ if ($role == 'ADMIN' || $role == 'OPERATOR'):
         </div>
     </div>
 </section>
+<script>
+  const role = <?= json_encode($role); ?>;
+  console.log(role);
+</script>
 <!-- /.content -->

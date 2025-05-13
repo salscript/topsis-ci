@@ -250,31 +250,38 @@ $(document).ready(function () {
   });
 
   //TABEL PERIODE
+  let columnPeriode = [
+    { data: "nomor" },
+      { data: "tgl_mulai" },
+      { data: "tgl_selesai" },
+  ];
+
+  if (role == "ADMIN" || role == "OPERATOR") {
+    columnPeriode.push({
+      data: null,
+      render: function () {
+        return `
+          <div class="btn-group btn-block">
+            <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-gears"></i> Opsi
+              <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" class="btn-edit">Edit</a></li>
+              <li><a href="#" class="btn-delete">Hapus</a></li>
+            </ul>
+          </div>
+        `;
+      },
+    });
+  }
 
   var tabelperiode = $("#tabelperiode").DataTable({
     ajax: { url: baseurl + "Periode/listperiode", dataSrc: "" },
-    columns: [
-      { data: "nomor" },
-      { data: "tgl_mulai" },
-      { data: "tgl_selesai" },
-      {
-        data: "",
-        render: function () {
-          return (
-            '<div class="btn-group btn-block">' +
-            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fa fa-gears"></i> Opsi  ' +
-            '<span class="caret"></span>' +
-            '<span class="sr-only"> Toggle Dropdown</span>' +
-            '</button><ul class="dropdown-menu" role="menu">' +
-            '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
-            '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
-            "</ul></div>"
-          );
-        },
-      },
-    ],
+    columns: columnPeriode,
   });
+
+  
   $("#tabelperiode tbody").on("click", "#editp", function () {
     var data = tabelperiode.row($(this).parents("tr")).data();
     $.ajax({
@@ -397,43 +404,47 @@ $(document).ready(function () {
   });
 
   //TABEL KRITERIA
-  var tabelkriteria = $("#tabelkriteria").DataTable({
-    ajax: { url: baseurl + "Kriteria/listkriteria", dataSrc: "" },
-    columns: [
-      { data: "nomor" },
+  let columnsKriteria = [
+    { data: "nomor" },
       { data: "ketkri" },
       { data: "bobot" },
       { data: "atribut" },
       { data: "name" },
       {
         data: "status",
-        render: function (data) {
-          if (data == 1) {
-            return '<button class="btn btn-success btn-block">Aktif</button></td></td>';
-          } else {
-            return '<button class="btn btn-danger btn-block">Non-Aktif</button></td></td>';
-          }
-        },
+      render: function (data) {
+        return data == 1
+          ? '<button class="btn btn-success btn-block">Aktif</button>'
+          : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
       },
-      {
-        data: "",
-        render: function () {
-          return (
-            '<div class="btn-group btn-block">' +
-            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fa fa-gears"></i> Opsi  ' +
-            '<span class="caret"></span>' +
-            '<span class="sr-only"> Toggle Dropdown</span>' +
-            '</button><ul class="dropdown-menu" role="menu">' +
-            '<li><a href="javascript:void(0)" id="editk">Edit</a></li>' +
-            '<li><a href="javascript:void(0)" id="delk">Delete</a></li>' +
-            "</ul></div>"
-          );
-        },
+    }
+  ];
+  
+  if (role == 'ADMIN' || role == 'OPERATOR') {
+    columnsKriteria.push({
+      data: null,
+      render: function () {
+        return `
+          <div class="btn-group btn-block">
+            <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-gears"></i> Opsi
+              <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#" class="btn-edit">Edit</a></li>
+              <li><a href="#" class="btn-delete">Hapus</a></li>
+            </ul>
+          </div>
+        `;
       },
-    ],
-  });
+    });
+  }
 
+  var tabelkriteria = $("#tabelkriteria").DataTable({
+    ajax: { url: baseurl + "Kriteria/listkriteria", dataSrc: "" },
+    columns: columnsKriteria,
+  });
+  
   $("#tabelkriteria tbody").on("click", "#editk", function () {
     var data = tabelkriteria.row($(this).parents("tr")).data();
     $.ajax({
@@ -558,77 +569,6 @@ $(document).ready(function () {
 
   //TABEL SUB KRITERIA
   //   console.log("sub kriteria work");
-  // var tabelSubKriteria = $("#tabelSubKriteria").DataTable({
-  //   ajax: { url: baseurl + "SubKriteria/listSubKriteria", dataSrc: "" },
-  //   columns: [
-  //     { data: "nomor" },
-  //     { data: "idkri" },
-  //     { data: "nama_sub" },
-  //     { data: "indikator" },
-  //     { data: "bobot" },
-  //     {
-  //       data: "",
-  //       render: function () {
-  //         return (
-  //           '<div class="btn-group btn-block">' +
-  //           '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-  //           '<i class="fa fa-gears"></i> Opsi  ' +
-  //           '<span class="caret"></span>' +
-  //           '<span class="sr-only"> Toggle Dropdown</span>' +
-  //           '</button><ul class="dropdown-menu" role="menu">' +
-  //           '<li><a href="javascript:void(0)" id="editsk">Edit</a></li>' +
-  //           '<li><a href="javascript:void(0)" id="delsk">Delete</a></li>' +
-  //           "</ul></div>"
-  //         );
-  //       },
-  //     },
-  //   ],
-  // });
-
-  // let columnSubKriteria = [
-  //   { data: "nomor" },
-  //   { data: "idkri" },
-  //   { data: "nama_sub" },
-  //   { data: "indikator" },
-  //   { data: "bobot" },
-  //   {
-  //     data: "",
-  //     render: function () {
-  //       return (
-  //         '<div class="btn-group btn-block">' +
-  //         '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-  //         '<i class="fa fa-gears"></i> Opsi  ' +
-  //         '<span class="caret"></span>' +
-  //         '<span class="sr-only"> Toggle Dropdown</span>' +
-  //         '</button><ul class="dropdown-menu" role="menu">' +
-  //         '<li><a href="javascript:void(0)" id="editsk">Edit</a></li>' +
-  //         '<li><a href="javascript:void(0)" id="delsk">Delete</a></li>' +
-  //         "</ul></div>"
-  //       );
-  //     },
-  //   },
-  // ];
-
-  // if (role == "ADMIN" || role == "OPERATOR") {
-  //   columnSubKriteria.push({
-  //     data: null,
-  //     render: function () {
-  //       return `
-  //         <div class="btn-group btn-block">
-  //           <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
-  //             <i class="fa fa-gears"></i> Opsi
-  //             <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
-  //           </button>
-  //           <ul class="dropdown-menu" role="menu">
-  //             <li><a href="#" class="btn-edit">Edit</a></li>
-  //             <li><a href="#" class="btn-delete">Hapus</a></li>
-  //           </ul>
-  //         </div>
-  //       `;
-  //     },
-  //   });
-  // }
-
   let columnSubKriteria = [
     { data: "nomor" },
     { data: "idkri" },
@@ -661,7 +601,7 @@ $(document).ready(function () {
     ajax: { url: baseurl + "SubKriteria/listSubKriteria", dataSrc: "" },
     columns: columnSubKriteria,
   });
-
+  
   $("#tabelSubKriteria tbody").on("click", "#editsk", function () {
     var data = tabelSubKriteria.row($(this).parents("tr")).data();
     $.ajax({
@@ -824,7 +764,6 @@ $(document).ready(function () {
   //     },
   //   ],
   // });
-
   let columns = [
     { data: "nomor" },
     { data: "ket" },
@@ -835,10 +774,10 @@ $(document).ready(function () {
           ? '<button class="btn btn-success btn-block">Aktif</button>'
           : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
       },
-    },
+    }
   ];
-
-  if (role == "ADMIN" || role == "OPERATOR") {
+  
+  if (role == 'ADMIN' || role == 'OPERATOR') {
     columns.push({
       data: null,
       render: function () {
@@ -863,6 +802,8 @@ $(document).ready(function () {
     columns: columns,
   });
 
+  
+
   $("#tabelalter tbody").on("click", ".btn-edit", function () {
     var data = tabelalter.row($(this).parents("tr")).data();
     $.ajax({
@@ -880,7 +821,7 @@ $(document).ready(function () {
 
             var formData = new FormData(this);
             $.ajax({
-              url: baseurl + "Alternatif/editalter/",
+              url: baseurl + "Alternatif/editalter/", 
               type: "POST",
               data: formData,
               success: function (data) {
@@ -1267,3 +1208,4 @@ $(document).ready(function () {
     ],
   });
 });
+
