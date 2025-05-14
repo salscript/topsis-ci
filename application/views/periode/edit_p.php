@@ -10,13 +10,13 @@
       <div class="form-group">
         <label for="awal" class="col-sm-2 control-label">Tanggal Awal</label>
         <div class="col-sm-10">
-          <input type="date" name="tglawal" class="form-control" id="awal" value="<?=$dataperiode->tgl_mulai?>">
+          <input type="date" name="tglawal" class="form-control" id="awal" value="<?=$dataperiode->tgl_mulai?>" required>
         </div>
       </div>
       <div class="form-group">
         <label for="akhir" class="col-sm-2 control-label">Tanggal Akhir</label>
         <div class="col-sm-10">
-          <input type="date" name="tglakhir" class="form-control" id="akhir" value="<?=$dataperiode->tgl_selesai?>">
+          <input type="date" name="tglakhir" class="form-control" id="akhir" value="<?=$dataperiode->tgl_selesai?>" required>
         </div>
       </div>
       <div class="form-group">

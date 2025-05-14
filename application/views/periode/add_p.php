@@ -9,13 +9,13 @@
       <div class="form-group">
         <label for="awal" class="col-sm-2 control-label">Tanggal Awal</label>
         <div class="col-sm-10">
-          <input type="date" name="tglawal" class="form-control" id="awal">
+          <input type="date" name="tglawal" class="form-control" id="awal" required>
         </div>
       </div>
       <div class="form-group">
         <label for="akhir" class="col-sm-2 control-label">Tanggal Akhir</label>
         <div class="col-sm-10">
-          <input type="date" name="tglakhir" class="form-control" id="akhir">
+          <input type="date" name="tglakhir" class="form-control" id="akhir" required>
         </div>
       </div>
       <div class="form-group">

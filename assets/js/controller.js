@@ -633,77 +633,6 @@ $(document).ready(function () {
 
   //TABEL SUB KRITERIA
   //   console.log("sub kriteria work");
-  // var tabelSubKriteria = $("#tabelSubKriteria").DataTable({
-  //   ajax: { url: baseurl + "SubKriteria/listSubKriteria", dataSrc: "" },
-  //   columns: [
-  //     { data: "nomor" },
-  //     { data: "idkri" },
-  //     { data: "nama_sub" },
-  //     { data: "indikator" },
-  //     { data: "bobot" },
-  //     {
-  //       data: "",
-  //       render: function () {
-  //         return (
-  //           '<div class="btn-group btn-block">' +
-  //           '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-  //           '<i class="fa fa-gears"></i> Opsi  ' +
-  //           '<span class="caret"></span>' +
-  //           '<span class="sr-only"> Toggle Dropdown</span>' +
-  //           '</button><ul class="dropdown-menu" role="menu">' +
-  //           '<li><a href="javascript:void(0)" id="editsk">Edit</a></li>' +
-  //           '<li><a href="javascript:void(0)" id="delsk">Delete</a></li>' +
-  //           "</ul></div>"
-  //         );
-  //       },
-  //     },
-  //   ],
-  // });
-
-  // let columnSubKriteria = [
-  //   { data: "nomor" },
-  //   { data: "idkri" },
-  //   { data: "nama_sub" },
-  //   { data: "indikator" },
-  //   { data: "bobot" },
-  //   {
-  //     data: "",
-  //     render: function () {
-  //       return (
-  //         '<div class="btn-group btn-block">' +
-  //         '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-  //         '<i class="fa fa-gears"></i> Opsi  ' +
-  //         '<span class="caret"></span>' +
-  //         '<span class="sr-only"> Toggle Dropdown</span>' +
-  //         '</button><ul class="dropdown-menu" role="menu">' +
-  //         '<li><a href="javascript:void(0)" id="editsk">Edit</a></li>' +
-  //         '<li><a href="javascript:void(0)" id="delsk">Delete</a></li>' +
-  //         "</ul></div>"
-  //       );
-  //     },
-  //   },
-  // ];
-
-  // if (role == "ADMIN" || role == "OPERATOR") {
-  //   columnSubKriteria.push({
-  //     data: null,
-  //     render: function () {
-  //       return `
-  //         <div class="btn-group btn-block">
-  //           <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
-  //             <i class="fa fa-gears"></i> Opsi
-  //             <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
-  //           </button>
-  //           <ul class="dropdown-menu" role="menu">
-  //             <li><a href="#" class="btn-edit">Edit</a></li>
-  //             <li><a href="#" class="btn-delete">Hapus</a></li>
-  //           </ul>
-  //         </div>
-  //       `;
-  //     },
-  //   });
-  // }
-
   let columnSubKriteria = [
     { data: "nomor" },
     { data: "idkri" },
@@ -899,7 +828,6 @@ $(document).ready(function () {
   //     },
   //   ],
   // });
-
   let columns = [
     { data: "nomor" },
     { data: "ket" },

@@ -63,7 +63,7 @@
             <div class="col-xs-12">
                 <div class="box box-default">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Riwayat Akses</h3>
+                        <h3 class="box-title"> Akses</h3>
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
