@@ -17,7 +17,8 @@ class Admin extends MY_Controller
 		$this->render_page('utama',$data);
 	}
 	public function ubahpwd(){
-		$this->render_page('cpass');
+		$data['role'] = $this->session->userdata('role');
+		$this->render_page('cpass', $data);
 	}
 	public function prosespwd()
 	{
@@ -49,6 +50,7 @@ class Admin extends MY_Controller
 	}
 	public function hasil()
 	{
+		$data['role'] = $this->session->userdata('role');
 		$data['listperiod']=$this->Fungsi->listperiod();
 		$this->render_page('hsl',$data);
 	}
@@ -73,7 +75,9 @@ class Admin extends MY_Controller
 
 	public function Hasilhitung()
 	{
+		// $data['role'] = $this->session->userdata('role');
 		$data=array(
+			'role'=>$this->session->userdata('role'),
 			'listperiod'=>$this->Fungsi->listperiod(),
 		);
 		$this->render_page('hasilhitung',$data);
@@ -86,6 +90,7 @@ class Admin extends MY_Controller
 			$ater=$this->Fungsi->getalter($idper);
 			if($ater){
 				$data=$this->Proses->hitung($idper,$ater,$krit);
+				$data['role'] = $this->session->userdata('role');
 				$data['data']=$this->Fungsi->getformat();
 				$data['period']=$this->Fungsi->periode($idper);
 				$this->load->view('hitunghasil',$data);
@@ -117,7 +122,9 @@ class Admin extends MY_Controller
 	}
 
 	public function setting(){
+		// $data['role'] = $this->session->userdata('role');
 		$data=array(
+			'role'=>$this->session->userdata('role'),
 			'laporan'=>$this->Fungsi->getformat(),
 			'general'=>$this->Fungsi->getsetting(),
 		);

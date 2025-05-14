@@ -17,7 +17,8 @@ class Usermanager extends MY_Controller
 
 	public function index()
 	{
-		$this->render_page('Listuser');
+		$data['role'] = $this->session->userdata('role');
+		$this->render_page('Listuser', $data);
 	}
 
 	function listuser()

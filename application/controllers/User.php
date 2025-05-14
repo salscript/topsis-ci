@@ -21,7 +21,8 @@ class User extends MY_Controller
 		$this->render_page('user/home',$data);
 	}
 	public function ubahpwd(){
-		$this->render_page('user/cpass');
+		$data['role'] = $this->session->userdata('role');
+		$this->render_page('user/cpass', $data);
 	}
 	public function prosespwd()
 	{
