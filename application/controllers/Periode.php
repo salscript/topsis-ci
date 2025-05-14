@@ -15,7 +15,9 @@ class Periode extends MY_Controller
 	}
 
 	public function index(){
-		$this->render_page('Listperiode');
+		$data['role'] = $this->session->userdata('role');
+
+		$this->render_page('Listperiode', $data);
 	}
 
 	function listperiode(){

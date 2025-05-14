@@ -12,13 +12,13 @@
           <div class="panel panel-default">
             <div class="panel-body" id="isikonten">
             <?php
-            $role = $this->session->userdata('role');
-if ($role == 'ADMIN' || $role == 'OPERATOR'):
-?>
-    <a href="javascript:void(0)" class="btn btn-primary btn-block" id="kritadd">
-        <i class="fa fa-plus-circle"></i> Tambah Kriteria
-    </a>
-<?php endif; ?>
+            // $role = $this->session->userdata('role');
+            if ($this->session->userdata('role') == 'ADMIN' || $this->session->userdata('role') == 'OPERTAOR'):
+            ?>
+            <a href="javascript:void(0)" class="btn btn-primary btn-block" id="kritadd">
+                <i class="fa fa-plus-circle"></i> Tambah Kriteria
+            </a>
+            <?php endif; ?>
             <p></p>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="tabelkriteria">
@@ -30,14 +30,13 @@ if ($role == 'ADMIN' || $role == 'OPERATOR'):
                                 <th>Atribut</th>
                                 <th>Kode</th>
                                 <th>Status</th>
-                                <!-- <?php 
+                                <?php 
                                     if($_SESSION['role'] != 'SUPPLIER') {
                                 ?>
                                     <th>Opsi</th>
-                                    <?php 
+                                <?php 
                                     }
-                                    ?> -->
-                                    <th>Opsi</th>
+                                ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,4 +48,8 @@ if ($role == 'ADMIN' || $role == 'OPERATOR'):
         </div>
     </div>
 </section>
+<script>
+  const role = <?= json_encode($role); ?>;
+  console.log(role);
+</script>
 <!-- /.content -->

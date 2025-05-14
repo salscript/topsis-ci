@@ -12,6 +12,7 @@ class Admin extends MY_Controller
 	}
 
 	public function menu(){
+		$data['role'] = $this->session->userdata('role');
 		$data['json']=$this->Fungsi->dashdata();
 		$this->render_page('utama',$data);
 	}

@@ -251,30 +251,62 @@ $(document).ready(function () {
 
   //TABEL PERIODE
 
-  var tabelperiode = $("#tabelperiode").DataTable({
-    ajax: { url: baseurl + "Periode/listperiode", dataSrc: "" },
-    columns: [
-      { data: "nomor" },
-      { data: "tgl_mulai" },
-      { data: "tgl_selesai" },
-      {
-        data: "",
-        render: function () {
-          return (
-            '<div class="btn-group btn-block">' +
-            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fa fa-gears"></i> Opsi  ' +
-            '<span class="caret"></span>' +
-            '<span class="sr-only"> Toggle Dropdown</span>' +
-            '</button><ul class="dropdown-menu" role="menu">' +
-            '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
-            '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
-            "</ul></div>"
-          );
-        },
+  // var tabelperiode = $("#tabelperiode").DataTable({
+  //   ajax: { url: baseurl + "Periode/listperiode", dataSrc: "" },
+  //   columns: [
+  //     { data: "nomor" },
+  //     { data: "tgl_mulai" },
+  //     { data: "tgl_selesai" },
+  //     {
+  //       data: "",
+  //       render: function () {
+  //         return (
+  //           '<div class="btn-group btn-block">' +
+  //           '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+  //           '<i class="fa fa-gears"></i> Opsi  ' +
+  //           '<span class="caret"></span>' +
+  //           '<span class="sr-only"> Toggle Dropdown</span>' +
+  //           '</button><ul class="dropdown-menu" role="menu">' +
+  //           '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
+  //           '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
+  //           "</ul></div>"
+  //         );
+  //       },
+  //     },
+  //   ],
+  // });
+
+  let columnPeriode = [
+    { data: "nomor" },
+    { data: "tgl_mulai" },
+    { data: "tgl_selesai" },
+  ];
+
+  if (role == "ADMIN" || role == "OPERATOR") {
+    columnPeriode.push({
+      data: null,
+      render: function () {
+        return `
+          <div class="btn-group btn-block">
+            <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-gears"></i> Opsi
+              <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="javascript:void(0)" id="editp" class="btn-edit">Edit</a></li>
+              <li><a href="javascript:void(0)" id="delp" class="btn-delete">Hapus</a></li>
+            </ul>
+          </div>
+        `;
       },
-    ],
+    });
+  }
+
+  var tabelperiode = $("#tabelperiode").DataTable({
+    ajax: { url: baseurl + "periode/listperiode", dataSrc: "" },
+    columns: columnPeriode,
   });
+
   $("#tabelperiode tbody").on("click", "#editp", function () {
     var data = tabelperiode.row($(this).parents("tr")).data();
     $.ajax({
@@ -397,41 +429,84 @@ $(document).ready(function () {
   });
 
   //TABEL KRITERIA
+  // var tabelkriteria = $("#tabelkriteria").DataTable({
+  //   ajax: { url: baseurl + "Kriteria/listkriteria", dataSrc: "" },
+  //   columns: [
+  //     { data: "nomor" },
+  //     { data: "ketkri" },
+  //     { data: "bobot" },
+  //     { data: "atribut" },
+  //     { data: "name" },
+  //     {
+  //       data: "status",
+  //       render: function (data) {
+  //         if (data == 1) {
+  //           return '<button class="btn btn-success btn-block">Aktif</button></td></td>';
+  //         } else {
+  //           return '<button class="btn btn-danger btn-block">Non-Aktif</button></td></td>';
+  //         }
+  //       },
+  //     },
+  //     {
+  //       data: "",
+  //       render: function () {
+  //         return (
+  //           '<div class="btn-group btn-block">' +
+  //           '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+  //           '<i class="fa fa-gears"></i> Opsi  ' +
+  //           '<span class="caret"></span>' +
+  //           '<span class="sr-only"> Toggle Dropdown</span>' +
+  //           '</button><ul class="dropdown-menu" role="menu">' +
+  //           '<li><a href="javascript:void(0)" id="editk">Edit</a></li>' +
+  //           '<li><a href="javascript:void(0)" id="delk">Delete</a></li>' +
+  //           "</ul></div>"
+  //         );
+  //       },
+  //     },
+  //   ],
+  // });
+
+  let columnkriteria = [
+    { data: "nomor" },
+    { data: "ketkri" },
+    { data: "bobot" },
+    { data: "atribut" },
+    { data: "name" },
+    {
+      data: "status",
+      render: function (data) {
+        if (data == 1) {
+          return '<button class="btn btn-success btn-block">Aktif</button></td></td>';
+        } else {
+          return '<button class="btn btn-danger btn-block">Non-Aktif</button></td></td>';
+        }
+      },
+    },
+  ];
+
+  if (role == "ADMIN" || role == "OPERATOR") {
+    columnkriteria.push({
+      data: null,
+      render: function () {
+        return `
+          <div class="btn-group btn-block">
+            <button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-gears"></i> Opsi
+              <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="javascript:void(0)" id="editk" class="btn-edit">Edit</a></li>
+              <li><a href="javascript:void(0)" id="delk" class="btn-delete">Hapus</a></li>
+            </ul>
+          </div>
+        `;
+      },
+    });
+  }
+
   var tabelkriteria = $("#tabelkriteria").DataTable({
-    ajax: { url: baseurl + "Kriteria/listkriteria", dataSrc: "" },
-    columns: [
-      { data: "nomor" },
-      { data: "ketkri" },
-      { data: "bobot" },
-      { data: "atribut" },
-      { data: "name" },
-      {
-        data: "status",
-        render: function (data) {
-          if (data == 1) {
-            return '<button class="btn btn-success btn-block">Aktif</button></td></td>';
-          } else {
-            return '<button class="btn btn-danger btn-block">Non-Aktif</button></td></td>';
-          }
-        },
-      },
-      {
-        data: "",
-        render: function () {
-          return (
-            '<div class="btn-group btn-block">' +
-            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-            '<i class="fa fa-gears"></i> Opsi  ' +
-            '<span class="caret"></span>' +
-            '<span class="sr-only"> Toggle Dropdown</span>' +
-            '</button><ul class="dropdown-menu" role="menu">' +
-            '<li><a href="javascript:void(0)" id="editk">Edit</a></li>' +
-            '<li><a href="javascript:void(0)" id="delk">Delete</a></li>' +
-            "</ul></div>"
-          );
-        },
-      },
-    ],
+    ajax: { url: baseurl + "kriteria/listkriteria", dataSrc: "" },
+    columns: columnkriteria,
   });
 
   $("#tabelkriteria tbody").on("click", "#editk", function () {
@@ -648,8 +723,8 @@ $(document).ready(function () {
               <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#" class="btn-edit">Edit</a></li>
-              <li><a href="#" class="btn-delete">Hapus</a></li>
+              <li><a href="javascript:void(0)" id="editsk" class="btn-edit">Edit</a></li>
+              <li><a href="javascript:void(0)" id="delsk" class="btn-delete">Hapus</a></li>
             </ul>
           </div>
         `;
@@ -849,8 +924,8 @@ $(document).ready(function () {
               <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#" class="btn-edit">Edit</a></li>
-              <li><a href="#" class="btn-delete">Hapus</a></li>
+              <li><a href="javascript:void(0)" class="btn-edit">Edit</a></li>
+              <li><a href="javascript:void(0)" class="btn-delete">Hapus</a></li>
             </ul>
           </div>
         `;
