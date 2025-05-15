@@ -158,13 +158,18 @@
         </li>
     <?php } ?>
 
-    <?php if ($_SESSION['role'] != 'OPERATOR' &&$_SESSION['role'] != 'SUPPLIER') { ?>
+     <?php if ($_SESSION['role'] == 'ADMIN' || $_SESSION['role'] == 'OPERATOR' ) {
+    ?>
         <li>
                         <a href="<?= base_url('Admin/Hasil') ?>" id="seleksi">
                             <i class="fa fa-laptop"></i>
                             <span>Perhitungan</span>
                         </a>
                     </li>
+                 <?php }?>
+
+     <?php if ($_SESSION['role'] == 'ADMIN' || $_SESSION['role'] == 'OPERATOR' || $_SESSION['role'] == 'SUPPLIER') {
+    ?>   
         <li>
             <a href="<?= base_url('Admin/Hasilhitung') ?>">
                 <i class="fa fa-edit"></i> <span>Hasil Ranking</span>

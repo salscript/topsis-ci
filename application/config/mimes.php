@@ -102,7 +102,7 @@ return array(
 	'mpeg'	=>	'video/mpeg',
 	'mpg'	=>	'video/mpeg',
 	'mpe'	=>	'video/mpeg',
-	'qt'	=>	'video/quicktime',
+	'qt'	=>	'video/time',
 	'mov'	=>	'video/quicktime',
 	'avi'	=>	array('video/x-msvideo', 'video/msvideo', 'video/avi', 'application/x-troff-msvideo'),
 	'movie'	=>	'video/x-sgi-movie',
