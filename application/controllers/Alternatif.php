@@ -245,6 +245,12 @@ class Alternatif extends MY_Controller
 					}
 
 					if ($cekin) {
+						$this->Fungsi->addhist(array(
+                    'menu' => 'Data Alternatif',
+                    'aksi' => 'Ubah Data Alternatif ID: ' . $id_alter,
+                    'tanggal_aksi' => date('Y-m-d H:i:s'),
+                    'user_name' => $_SESSION['user']
+                	));
 						echo "Berhasil Edit Alternatif";
 					} else {
 						header('HTTP/1.1 500 Gagal Edit Alternatif');
@@ -292,6 +298,12 @@ class Alternatif extends MY_Controller
 				$this->db->where('idalter', $idalter);
 				$cek2=$this->db->delete('alters');
 				if($cek2){
+					$this->Fungsi->addhist(array(
+                    'menu' => 'Data Alternatif',
+                    'aksi' => 'Hapus Data Alternatif ID: ' . $idalter,
+                    'tanggal_aksi' => date('Y-m-d H:i:s'),
+                    'user_name' => $_SESSION['user']
+               ));
 					echo "Hapus Berhasil";
 				}
 				else{
@@ -347,6 +359,12 @@ class Alternatif extends MY_Controller
 						}
 					}
 					if(isset($cekin) && $cekin){
+						$this->Fungsi->addhist(array(
+                    'menu' => 'Data Alternatif',
+                    'aksi' => 'Tambah Data Alternatif',
+                    'tanggal_aksi' => date('Y-m-d H:i:s'),
+                    'user_name' => $_SESSION['user']
+                	));
 						echo "Berhasil Tambah Alternatif";
 					}
 					else{
