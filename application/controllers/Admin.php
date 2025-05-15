@@ -6,7 +6,7 @@ class Admin extends MY_Controller
 {
 	function __construct(){
 	  parent::__construct();
-	  if ($_SESSION['role']=='OPERATOR' || empty($_SESSION['user'])) {
+	  if (empty($_SESSION['user'])) {
 	  	redirect('logout');
 	  }
 	}
@@ -14,6 +14,7 @@ class Admin extends MY_Controller
 	public function menu(){
 		$data['role'] = $this->session->userdata('role');
 		$data['json']=$this->Fungsi->dashdata();
+		$data['listperiod'] = $this->Fungsi->listperiod();
 		$this->render_page('utama',$data);
 	}
 	public function ubahpwd(){

@@ -1,15 +1,23 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1 id="headtitle">
-        Halaman Utama
-    </h1>
+    <?php
+        if ($_SESSION['role'] == 'ADMIN') {
+    ?>
+        <h1 id="headtitle">
+            Halaman Utama
+        </h1>
+    <?php } else { ?>
+        <h1 id="headtitle">
+            Perhitungan Hasil Rangking
+        </h1>
+    <?php } ?>
 </section>
 
 <!-- Main content -->
-<section class="content">
-    <?php
+<?php
     if ($_SESSION['role'] == 'ADMIN') {
-        ?>
+?>
+<section class="content">
     <div class="row">
         <div class="col-lg-4 col-xs-6">
             <!-- small box -->
@@ -54,10 +62,6 @@
         </div>
         <!-- ./col -->
     </div>
-    <?php
-
-}
-?>
     <div class="row">
         <div class="col-xs-12">
             <div class="col-xs-12">
@@ -87,6 +91,48 @@
         </div>
     </div>
 </section>
+<?php
+    } else if ($_SESSION['role'] == "SUPPLIER") {
+?>
+<section class="content">
+    <p>
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="perid2">Pilih Periode</label>
+                <select class="form-control" id="perid2">
+                    <?php
+                        foreach ($listperiod as $key) {
+                            $tgl_mulai = date('Y/m/d', strtotime($key->tgl_mulai)); // contoh: 2025/01
+                            $tgl_selesai = date('Y/m/d', strtotime($key->tgl_selesai)); // contoh: 31
+                            echo "<option value='{$key->id_tahun}'>{$tgl_mulai} s/d {$tgl_selesai}</option>";
+                        ?>
+                        <?php
+                        }
+                    ?>
+                </select>
+                <br>
+                <button type="submit" id="carper2" class="btn btn-info btn-block">Cari</button>
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+  </p>
+
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <p id="ganti-supp">
+                
+            </p>
+        </div>
+    </div>
+</section>
+<?php } ?>
+
 <script>
   const role = <?= json_encode($role); ?>;
   console.log(role);
