@@ -8,7 +8,7 @@
         </h1>
     <?php } else { ?>
         <h1 id="headtitle">
-            Perhitungan Hasil Rangking
+            Quick Menu
         </h1>
     <?php } ?>
 </section>
@@ -94,31 +94,38 @@
 <?php
     } else if ($_SESSION['role'] == "SUPPLIER") {
 ?>
+<!-- Main content -->
 <section class="content">
-    <p>
     <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-            <div class="form-group">
-                <label for="perid2">Pilih Periode</label>
-                <select class="form-control" id="perid2">
-                    <?php
-                        foreach ($listperiod as $key) {
-                            $tgl_mulai = date('Y/m/d', strtotime($key->tgl_mulai)); // contoh: 2025/01
-                            $tgl_selesai = date('Y/m/d', strtotime($key->tgl_selesai)); // contoh: 31
-                            echo "<option value='{$key->id_tahun}'>{$tgl_mulai} s/d {$tgl_selesai}</option>";
-                        ?>
-                        <?php
-                        }
-                    ?>
-                </select>
-                <br>
-                <button type="submit" id="carper2" class="btn btn-info btn-block">Cari</button>
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Profil</h3>
+                </div>
+                <div class="box-body">
+                    <form method="post" id="gantifoto" enctype="multipart/form-data">
+                        <input type="hidden" name="iduser" class="form-control" id="idus" value="<?= $this->session->id ?>" readonly>
+                        <table class="table">
+                            <tr>
+                                <td>Username</td>
+                                <td><b><?= $this->session->user ?></b></td>
+                            </tr>
+                            <tr>
+                                <td>Hak Akses</td>
+                                <td><b><?= $this->session->role ?></b></td>
+                            </tr>
+                            <tr>
+                            <td> <img class="attachment-img form-control" id="priv2" src="<?= base_url("assets/images/".$this->session->foto) ?>" style="width:128px;height:128px" alt="Image Preview">
+                                </td>
+                                <td><label for="foto">Foto</label>
+                                    <input type="file" name="foto2" id="foto2" class="form-control"></td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary pull-right">Update Foto</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="col-lg-4"></div>
-    </div>
-  </p>
 
 </section>
 
@@ -138,3 +145,4 @@
   console.log(role);
 </script>
 <!-- /.content --> 
+ 
