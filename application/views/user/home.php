@@ -36,5 +36,8 @@
         </div>
     </div>
 </section>
-
+<script>
+  const role = <?= json_encode($role); ?>;
+  console.log(role);
+</script>
 <!-- /.content --> 

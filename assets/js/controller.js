@@ -1110,19 +1110,10 @@ $(document).ready(function () {
     })
       .done(function (data) {
         toastr.success("Sukses Pencarian", "Sukses");
-        if (role == "ADMIN" || role == "OPERATOR") {
-          $("#ganti").html(data);
-          $("#printlap").on("click", function () {
-            $("#printpa").printThis();
-          });
-        }
-
-        if (role == "SUPPLIER") {
-          $("#ganti-supp").html(data);
-          $("#printlap").on("click", function () {
-            $("#printpa").printThis();
-          });
-        }
+        $("#ganti").html(data);
+        $("#printlap").on("click", function () {
+          $("#printpa").printThis();
+        });
       })
       .fail(function (hr, ajaxOptions, thrownError) {
         toastr.error(thrownError, "ERROR");

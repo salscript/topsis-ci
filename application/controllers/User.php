@@ -15,9 +15,12 @@ class User extends MY_Controller
 	  }
 	}
 	public function menu(){
-		$data['periode']=$this->Altperiod->getall('tahun');
-		$data['kriteria'] = $this->Altperiod->getall('kriteria');
-		$data['subkriteria'] = $this->SubKrite->list();
+		$data['role'] = $this->session->userdata('role');
+		$data['json']=$this->Fungsi->dashdata();
+		$data['listperiod'] = $this->Fungsi->listperiod();
+		// $data['periode']=$this->Altperiod->getall('tahun');
+		// $data['kriteria'] = $this->Altperiod->getall('kriteria');
+		// $data['subkriteria'] = $this->SubKrite->list();
 		$this->render_page('user/home',$data);
 	}
 	public function ubahpwd(){
