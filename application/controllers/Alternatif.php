@@ -7,6 +7,8 @@ class Alternatif extends MY_Controller
 	function __construct(){
 	  parent::__construct();
 	  $this->load->model('SubKrite');
+	  $this->load->model('JenSup');
+	  $this->load->model('Altperiod');
 	  if (empty($_SESSION['user'])) {
 	  	redirect(site_url(''));
 	  }
@@ -18,7 +20,7 @@ class Alternatif extends MY_Controller
 	}
 
 	function listalter(){
-		$datauser=$this->db->get('alters')->result();
+		$datauser=$this->Altperiod->getAlter();
 		$a=1;
 		$test=array();
 		foreach ($datauser as $key) {
@@ -211,14 +213,15 @@ class Alternatif extends MY_Controller
 					exit;
 				}
 
-				$dataperiode = array(
+				$dataalternatif = array(
 					'ket' => $this->input->post('ket'),
 					'id_tahun' => $idtahun,
-					'status' => $this->input->post('status')
+					'status' => $this->input->post('status'),
+					'jenis_supp_id' => $this->input->post('jensup')
 				);
 
 				$this->db->where('idalter', $id_alter);
-				$cekmasuk = $this->db->update('alters', $dataperiode);
+				$cekmasuk = $this->db->update('alters', $dataalternatif);
 
 				if($cekmasuk) {
 					$noid = $id_alter;
@@ -246,10 +249,10 @@ class Alternatif extends MY_Controller
 
 					if ($cekin) {
 						$this->Fungsi->addhist(array(
-                    'menu' => 'Data Alternatif',
-                    'aksi' => 'Ubah Data Alternatif ID: ' . $id_alter,
-                    'tanggal_aksi' => date('Y-m-d H:i:s'),
-                    'user_name' => $_SESSION['user']
+						'menu' => 'Data Alternatif',
+						'aksi' => 'Ubah Data Alternatif ID: ' . $id_alter,
+						'tanggal_aksi' => date('Y-m-d H:i:s'),
+						'user_name' => $_SESSION['user']
                 	));
 						echo "Berhasil Edit Alternatif";
 					} else {
@@ -284,7 +287,11 @@ class Alternatif extends MY_Controller
 			// Ambil subkriteria
 			$data['subkriteria'] = $this->SubKrite->list();
 
+			// Ambil Jenis Supplier
+			$data['jenissup'] = $this->JenSup->list();
+
 			// Tampilkan view edit alternatif
+			// print_r($data);
 			$this->load->view('alters/edit_al', $data);
 		}
 	}
@@ -328,13 +335,14 @@ class Alternatif extends MY_Controller
 				header('HTTP/1.1 500 Tahun Sudah Tidak Aktif');
 			}
 			else{
-				$dataperiode=array(
+				$dataalternatif=array(
 					'ket'=>$this->input->post('ket'),
 					'id_tahun'=>$idtahun,
-					'status'=>$this->input->post('status')
+					'status'=>$this->input->post('status'),
+					'jenis_supp_id' => $this->input->post('jensup')
 				);
 
-				$this->db->set($dataperiode);
+				$this->db->set($dataalternatif);
 				$cekmasuk=$this->db->insert('alters');
 				
 				if ($cekmasuk) {
@@ -360,10 +368,10 @@ class Alternatif extends MY_Controller
 					}
 					if(isset($cekin) && $cekin){
 						$this->Fungsi->addhist(array(
-                    'menu' => 'Data Alternatif',
-                    'aksi' => 'Tambah Data Alternatif',
-                    'tanggal_aksi' => date('Y-m-d H:i:s'),
-                    'user_name' => $_SESSION['user']
+						'menu' => 'Data Alternatif',
+						'aksi' => 'Tambah Data Alternatif',
+						'tanggal_aksi' => date('Y-m-d H:i:s'),
+						'user_name' => $_SESSION['user']
                 	));
 						echo "Berhasil Tambah Alternatif";
 					}
@@ -384,6 +392,7 @@ class Alternatif extends MY_Controller
 			$this->db->order_by('kriteria.idkri', 'ASC');
 			$data['kriteria'] = $this->db->get()->result();
 			$data['subkriteria'] = $this->SubKrite->list();
+			$data['jenissup'] = $this->JenSup->list();
 			$data['role'] = $this->session->userdata('role');
 			// print_r($data);
 			$this->load->view('alters/add_al',$data);

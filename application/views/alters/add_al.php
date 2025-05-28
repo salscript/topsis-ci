@@ -29,13 +29,12 @@
       </div>
 
       <div class="form-group">
-        <label for="stat" class="col-sm-2 control-label">Jenis supplier</label>
+        <label for="jensup" class="col-sm-2 control-label">Jenis supplier</label>
         <div class="col-sm-10">
-          <select name="status" id="stat" class="form-control" required>
-            <?php foreach ($JenSup as $row): ?>
-           <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+          <select name="jensup" id="jensup" class="form-control" required>
+            <?php foreach ($jenissup as $row): ?>
+              <option value="<?= $row->id ?>"><?= $row->nama ?></option>
             <?php endforeach; ?>
-
           </select>
         </div>
       </div>

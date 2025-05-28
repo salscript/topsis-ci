@@ -131,6 +131,19 @@ class Altperiod extends CI_Model {
             return 1;
         }
     }
+
+    function getAlter() {
+        $this->db->select("
+            a.idalter as idalter,
+            a.ket as ket,
+            a.id_tahun as id_tahun,
+            a.jenis_supp_id as jenis_supp_id,
+            js.nama as nama_js
+        ");
+        $this->db->from("alters a");
+        $this->db->join("jenis_supplier js", "a.jenis_supp_id = js.id", "left");
+        return $this->db->get()->result();
+    }
 }
 
 /* End of file Altperiod.php */
