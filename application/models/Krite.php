@@ -66,8 +66,7 @@ class Krite extends CI_Model {
                 'ketkri' => $this->input->post('ket'),
                 'bobot' => $this->input->post('bobot'),
                 'name' => $this->input->post('name'),
-                'atribut' => $this->input->post('att'),
-                'status' => $this->input->post('status')
+                'atribut' => $this->input->post('att')
             );
 
             $this->db->where($cekperiod);

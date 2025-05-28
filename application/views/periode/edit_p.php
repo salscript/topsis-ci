@@ -19,28 +19,7 @@
           <input type="date" name="tglakhir" class="form-control" id="akhir" value="<?=$dataperiode->tgl_selesai?>" required>
         </div>
       </div>
-      <div class="form-group">
-        <label for="stat" class="col-sm-2 control-label">Status</label>
-        <div class="col-sm-10">
-          <select name="status" id="stat" class="form-control">
-            <?php
-              $role=array('Non-Aktif','Aktif');
-              foreach ($role as $key=>$value) {
-                if($key==$dataperiode->status){
-                  ?>
-                  <option value="<?=$key?>" selected><?=$value?></option>
-                <?php
-                }
-                else{
-                  ?>
-                  <option value="<?=$key?>"><?=$value?></option>
-                <?php
-                }
-              }
-            ?>
-          </select>
-        </div>
-      </div>
+      
       <div class="form-group">
         <button class="btn btn-default pull-left" data-dismiss="modal">Close</button>
         <input type="submit" class="btn btn-primary pull-right" id="updateusn" value="Update Data">

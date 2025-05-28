@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   //Tabel Jenis Supplier
   var tabelJenisSupp = $("#tabelJenisSupp").DataTable({
-    ajax: { url: baseurl + "JenisSupplier/listJenisSupp", dataSrc: "" },
+    ajax: { url: baseurl + "userjson", dataSrc: "" },
     columns: [
       { data: "nomor" },
       { data: "nama" },
@@ -51,6 +51,9 @@ $(document).ready(function () {
         if (data) {
           $("#modal_target").html(data);
           $("#modal").modal("toggle");
+          $("#foto").change(function () {
+            readURL(this, "priv");
+          });
           //FORM EDIT DATA USER
           $("form#editus").submit(function (e) {
             e.preventDefault();
@@ -302,7 +305,7 @@ $(document).ready(function () {
 
   //ADD USER
   $("#useradd").click(function () {
-    console.log("add user button clicked");
+    console.log("add user button clicked")
     $.ajax({
       type: "GET",
       url: baseurl + "Usermanager/adduser",
@@ -620,16 +623,7 @@ $(document).ready(function () {
     { data: "ketkri" },
     { data: "bobot" },
     { data: "atribut" },
-    { data: "name" },
-    {
-      data: "status",
-      render: function (data) {
-        if (data == 1) {
-          return '<button class="btn btn-success btn-block">Aktif</button></td></td>';
-        } else {
-          return '<button class="btn btn-danger btn-block">Non-Aktif</button></td></td>';
-        }
-      },
+    { data: "name",
     },
   ];
 
@@ -981,12 +975,8 @@ $(document).ready(function () {
     { data: "nomor" },
     { data: "ket" },
     {
-      data: "status",
-      render: function (data) {
-        return data == 1
-          ? '<button class="btn btn-success btn-block">Aktif</button>'
-          : '<button class="btn btn-danger btn-block">Non-Aktif</button>';
-      },
+      data: "",
+     
     },
   ];
 

@@ -88,8 +88,7 @@ class Kriteria extends MY_Controller
 				'ketkri'=>$this->input->post('ket'),
 				'bobot'=>$this->input->post('bobot'),
 				'name'=>$this->input->post('name'),
-				'atribut'=>$this->input->post('att'),
-				'status'=>$this->input->post('status')
+				'atribut'=>$this->input->post('att')
 			);
 			$cekmasuk=$this->Krite->add($dataperiode);
 			// print_r($pass);

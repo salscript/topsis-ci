@@ -29,7 +29,7 @@
                                 <th>Bobot</th>
                                 <th>Atribut</th>
                                 <th>Kode</th>
-                                <th>Status</th>
+
                                 <?php 
                                     if($_SESSION['role'] != 'SUPPLIER') {
                                 ?>

@@ -19,8 +19,8 @@
           <select name="id_tahun" id="per" class="form-control" required>
             <?php
               foreach ($periode as $key) {
-                $tgl_mulai = date("Y/m/d", strtotime($key->tgl_mulai));  // contoh: 2025/01
-                $tgl_selesai = date("Y/m/d", strtotime($key->tgl_selesai)); // contoh: 31
+                $tgl_mulai = date("Y/m/d", strtotime($key->tgl_mulai));  
+                $tgl_selesai = date("Y/m/d", strtotime($key->tgl_selesai)); 
                 echo "<option value='{$key->id_tahun}'>{$tgl_mulai}-{$tgl_selesai}</option>";
               }
             ?>
@@ -29,21 +29,18 @@
       </div>
 
       <div class="form-group">
-        <label for="stat" class="col-sm-2 control-label">Status</label>
+        <label for="stat" class="col-sm-2 control-label">Jenis supplier</label>
         <div class="col-sm-10">
           <select name="status" id="stat" class="form-control" required>
-            <?php
-              $role=array('Non-Aktif','Aktif');
-              foreach ($role as $key=>$value) {
-                  ?>
-                  <option value="<?=$key?>"><?=$value?></option>
-                <?php
-              }
-            ?>
+            <?php foreach ($JenSup as $row): ?>
+           <option value="<?= $row->id ?>"><?= $row->nama ?></option>
+            <?php endforeach; ?>
+
           </select>
         </div>
       </div>
-    <p>
+
+      <p>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead>

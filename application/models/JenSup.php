@@ -18,6 +18,8 @@ class JenSup extends CI_Model {
             $this->Fungsi->addhist(array(
                 'menu' => 'Data Jenis Supplier',
                 'aksi' => 'Tambah Jenis Supplier ID: ' . $this->db->insert_id(),
+                'menu' => 'Data Jenis Supplier',
+                'aksi' => 'Tambah Jenis Supplier ID: ' . $this->db->insert_id(),
                 'tanggal_aksi' => date('Y-m-d H:i:s'),
                 'user_name' => $_SESSION['user']
             ));
@@ -73,6 +75,8 @@ class JenSup extends CI_Model {
                 $id = isset($cekJenSup['id']) ? $cekJenSup['id'] : json_encode($cekJenSup);
 
                 $this->Fungsi->addhist(array(
+                    'menu' => 'Data Jenis Supplier',
+                    'aksi' => 'Ubah Data Jenis Supplier ID: ' . $id,
                     'menu' => 'Data Jenis Supplier',
                     'aksi' => 'Ubah Data Jenis Supplier ID: ' . $id,
                     'tanggal_aksi' => date('Y-m-d H:i:s'),

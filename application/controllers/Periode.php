@@ -44,8 +44,7 @@ class Periode extends MY_Controller
 				$id_tahun=$this->input->post('idtahun');
 				$dataperiode=array(
 					'tgl_mulai'=>$this->input->post('tglawal'),
-					'tgl_selesai'=>$this->input->post('tglakhir'),
-					'status'=>$this->input->post('status')
+					'tgl_selesai'=>$this->input->post('tglakhir')
 				);
 				$available=$this->Altperiod->edit($this->table,$dataperiode,$id_tahun);
 				if($available){
@@ -92,8 +91,7 @@ class Periode extends MY_Controller
 		if(isset($_POST) && count($_POST)>0){
 			$dataperiode=array(
 				'tgl_mulai'=>$this->input->post('tglawal'),
-				'tgl_selesai'=>$this->input->post('tglakhir'),
-				'status'=>$this->input->post('status')
+				'tgl_selesai'=>$this->input->post('tglakhir')
 			);
 			$cekmasuk=$this->Altperiod->add($this->table,$dataperiode);
 			// print_r($pass);

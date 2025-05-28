@@ -19,7 +19,7 @@
                         <tr>
                           <th>No</th>
                           <th>Keterangan</th>
-                          <th>Status</th>
+                          <th>Jenis supplier</th>
                           <?php 
                             if($_SESSION['role'] != 'SUPPLIER') {
                           ?>
