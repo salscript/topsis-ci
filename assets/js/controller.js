@@ -18,7 +18,7 @@ $(document).ready(function () {
 
   //Tabel Jenis Supplier
   var tabelJenisSupp = $("#tabelJenisSupp").DataTable({
-    ajax: { url: baseurl + "userjson", dataSrc: "" },
+    ajax: { url: baseurl + "JenisSupplier/listJenisSupp", dataSrc: "" },
     columns: [
       { data: "nomor" },
       { data: "nama" },
@@ -51,9 +51,6 @@ $(document).ready(function () {
         if (data) {
           $("#modal_target").html(data);
           $("#modal").modal("toggle");
-          $("#foto").change(function () {
-            readURL(this, "priv");
-          });
           //FORM EDIT DATA USER
           $("form#editus").submit(function (e) {
             e.preventDefault();

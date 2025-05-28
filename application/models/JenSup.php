@@ -8,16 +8,16 @@ class JenSup extends CI_Model {
     }
 
     function get($id){
-        $this->db->where('idkri', $id);
-        return $this->db->get('kriteria')->row();
+        $this->db->where('id', $id);
+        return $this->db->get('jenis_supplier')->row();
     }
 
-    function add($dataperiode){
-        $this->db->set($dataperiode);
-        if ($this->db->insert('kriteria')) {
+    function add($dataJenSup){
+        $this->db->set($dataJenSup);
+        if ($this->db->insert('jenis_supplier')) {
             $this->Fungsi->addhist(array(
-                'menu' => 'Data Kriteria',
-                'aksi' => 'Tambah Kriteria ID: ' . $this->db->insert_id(),
+                'menu' => 'Data Jenis Supplier',
+                'aksi' => 'Tambah Jenis Supplier ID: ' . $this->db->insert_id(),
                 'tanggal_aksi' => date('Y-m-d H:i:s'),
                 'user_name' => $_SESSION['user']
             ));
@@ -27,22 +27,22 @@ class JenSup extends CI_Model {
         }
     }
 
-    function delete($cekperiod){
-        $this->db->select('idkri');
-        $this->db->from('kriteria');
-        $this->db->where($cekperiod);
+    function delete($cekJenSup){
+        $this->db->select('id');
+        $this->db->from('jenis_supplier');
+        $this->db->where($cekJenSup);
         $available = $this->db->get();
 
         if ($available->num_rows() == 1) {
-            $this->db->where($cekperiod);
+            $this->db->where($cekJenSup);
             $query = $this->db->delete('kriteria');
             if ($query) {
-                // Ambil ID dari array $cekperiod untuk ditampilkan dengan aman
-                $id = isset($cekperiod['idkri']) ? $cekperiod['idkri'] : json_encode($cekperiod);
+                // Ambil ID dari array $cekJenSup untuk ditampilkan dengan aman
+                $id = isset($cekJenSup['id']) ? $cekJenSup['id'] : json_encode($cekJenSup);
 
                 $this->Fungsi->addhist(array(
-                    'menu' => 'Data Kriteria',
-                    'aksi' => 'Hapus Kriteria ID: ' . $id,
+                    'menu' => 'Data Jenis Suppliers',
+                    'aksi' => 'Hapus Jenis Suppliers ID: ' . $id,
                     'tanggal_aksi' => date('Y-m-d H:i:s'),
                     'user_name' => $_SESSION['user']
                 ));
@@ -55,29 +55,26 @@ class JenSup extends CI_Model {
         }
     }
 
-    function edit($cekperiod){
-        $this->db->select('idkri');
-        $this->db->from('kriteria');
-        $this->db->where($cekperiod);
+    function edit($cekJenSup){
+        $this->db->select('id');
+        $this->db->from('jenis_supplier');
+        $this->db->where($cekJenSup);
         $available = $this->db->get();
 
         if ($available->num_rows() == 1) {
-            $dataperiode = array(
-                'ketkri' => $this->input->post('ket'),
-                'bobot' => $this->input->post('bobot'),
-                'name' => $this->input->post('name'),
-                'atribut' => $this->input->post('att'),
-                'status' => $this->input->post('status')
+            $dataJenSupp = array(
+                'nama' => $this->input->post('nama'),
+                'updated' => date('Y-m-d')
             );
 
-            $this->db->where($cekperiod);
-            $updatedat = $this->db->update('kriteria', $dataperiode);
+            $this->db->where($cekJenSup);
+            $updatedat = $this->db->update('jenis_supplier', $dataJenSupp);
             if ($updatedat) {
-                $id = isset($cekperiod['idkri']) ? $cekperiod['idkri'] : json_encode($cekperiod);
+                $id = isset($cekJenSup['id']) ? $cekJenSup['id'] : json_encode($cekJenSup);
 
                 $this->Fungsi->addhist(array(
-                    'menu' => 'Data Kriteria',
-                    'aksi' => 'Ubah Data Kriteria ID: ' . $id,
+                    'menu' => 'Data Jenis Supplier',
+                    'aksi' => 'Ubah Data Jenis Supplier ID: ' . $id,
                     'tanggal_aksi' => date('Y-m-d H:i:s'),
                     'user_name' => $_SESSION['user']
                 ));

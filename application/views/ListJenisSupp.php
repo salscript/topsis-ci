@@ -11,10 +11,10 @@
         <div class="col-lg-12">
           <div class="panel panel-default">
             <div class="panel-body" id="isikonten">
-              <a href="javascript:void(0)" class="btn btn-primary btn-block" id="jenisSuppAdd"><i class="fa fa-plus-circle"></i> Tambah User</a>
+              <a href="javascript:void(0)" class="btn btn-primary btn-block" id="jenisSuppAdd"><i class="fa fa-plus-circle"></i> Tambah Jenis Supplier</a>
             <p></p>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="tabelJenisSupplier">
+                    <table class="table table-bordered table-hover" id="tabelJenisSupp">
                         <thead>
                             <tr>
                                 <th>No</th>

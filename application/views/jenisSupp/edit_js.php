@@ -7,10 +7,10 @@
   <div class="box-body">
     <form id="editk" class="form-horizontal" method="post">
       <div class="form-group">
-        <input type="hidden" name="idjs" value="">
-        <label for="ket" class="col-sm-2 control-label">Nama</label>
+        <input type="hidden" name="idjs" value="<?= $datajs->id ?>">
+        <label for="nama" class="col-sm-2 control-label">Nama</label>
         <div class="col-sm-10">
-          <input type="text" name="nama" class="form-control" id="nama" value="" required>
+          <input type="text" name="nama" class="form-control" id="nama" value="<?= $datajs->nama ?>" required>
         </div>
       </div>
       <div class="form-group">

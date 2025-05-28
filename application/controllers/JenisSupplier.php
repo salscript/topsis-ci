@@ -37,14 +37,14 @@ class JenisSupplier extends MY_Controller
         ->set_output(json_encode($test));
 	}
 
-	function editkriteria($idkrit=NULL){
-		if($idkrit==NULL){
+	function editJenSupp($idjs=NULL){
+		if($idjs==NULL){
 			if(isset($_POST) && count($_POST) > 0){
-				$id_krit=$this->input->post('idkri');
-				$cekperiod=array(
-					'idkri'=> $id_krit,
+				$idjs=$this->input->post('idjs');
+				$cekJenSup=array(
+					'id'=> $idjs,
 				);
-				$available=$this->Krite->edit($cekperiod);
+				$available=$this->JenSup->edit($cekJenSup);
 				if($available){
 					echo "Data telah diubah";
 				}
@@ -57,16 +57,16 @@ class JenisSupplier extends MY_Controller
 			}
 		}
 		else{
-			$data['datakriteria']=$this->Krite->get($idkrit);
-			$this->load->view('kriteria/edit_k',$data);
+			$data['datajs']=$this->JenSup->get($idjs);
+			$this->load->view('jenisSupp/edit_js',$data);
 		}
 	}
 
 	function removekriteria(){
 		if(isset($_POST) && count($_POST) > 0){
-			$idkri=$this->input->post('kri');
+			$idjs=$this->input->post('js');
 			$cekperiod=array(
-				'idkri'=> $idkri,
+				'id'=> $idjs,
 			);
 			$available=$this->Krite->delete($cekperiod);
 			// print_r($_POST);
@@ -84,17 +84,14 @@ class JenisSupplier extends MY_Controller
 
 	function addJenSup(){
 		if(isset($_POST) && count($_POST)>0){
-			$dataperiode=array(
-				'ketkri'=>$this->input->post('ket'),
-				'bobot'=>$this->input->post('bobot'),
-				'name'=>$this->input->post('name'),
-				'atribut'=>$this->input->post('att'),
-				'status'=>$this->input->post('status')
+			$dataJenSup=array(
+				'nama'=>$this->input->post('nama'),
+				'created' => date('Y-m-d')
 			);
-			$cekmasuk=$this->Krite->add($dataperiode);
+			$cekmasuk=$this->JenSup->add($dataJenSup);
 			// print_r($pass);
 			if ($cekmasuk) {
-				echo "Berhasil Tambah Periode";
+				echo "Berhasil Tambah Jenis Supplier";
 			}
 			else{
 				header('HTTP/1.1 500 Gagal Menambahkan');
