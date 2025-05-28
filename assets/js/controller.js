@@ -42,10 +42,11 @@ $(document).ready(function () {
   });
   $("#tabelJenisSupp tbody").on("click", "#editjs", function () {
     var data = tabelJenisSupp.row($(this).parents("tr")).data();
+    // console.log(data);s
     $.ajax({
       type: "GET",
       dataType: "text",
-      url: baseurl + "useredit/" + data["id_ngota"],
+      url: baseurl + "JenisSupplier/editJenSupp/" + data["id"],
       cache: false,
       success: function (data) {
         if (data) {
@@ -55,16 +56,16 @@ $(document).ready(function () {
             readURL(this, "priv");
           });
           //FORM EDIT DATA USER
-          $("form#editus").submit(function (e) {
+          $("form#editjs").submit(function (e) {
             e.preventDefault();
             var formData = new FormData(this);
             $.ajax({
-              url: baseurl + "Usermanager/edituser",
+              url: baseurl + "JenisSupplier/editJenSupp/",
               type: "POST",
               data: formData,
               success: function (data) {
                 toastr.success(data, "Sukses");
-                reload_user();
+                tabelJenisSupp.ajax.reload();
               },
               error: function (xhr, ajaxOptions, thrownError) {
                 toastr.error(thrownError, "ERROR");
@@ -100,10 +101,10 @@ $(document).ready(function () {
           btnClass: "btn-danger",
           action: function () {
             var options = {
-              url: baseurl + "Usermanager/deluser/",
+              url: baseurl + "JenisSupplier/removeJenSupp/",
               dataType: "text",
               type: "POST",
-              data: { iduser: data["id_ngota"] },
+              data: { idjs: data["idjs"] },
               success: function (data) {
                 toastr.options.onHidden = function () {
                   tabeluser.ajax.reload();
@@ -215,49 +216,50 @@ $(document).ready(function () {
   });
   $("#tabeluser tbody").on("click", "#edituser", function () {
     var data = tabeluser.row($(this).parents("tr")).data();
-    $.ajax({
-      type: "GET",
-      dataType: "text",
-      url: baseurl + "useredit/" + data["id_ngota"],
-      cache: false,
-      success: function (data) {
-        if (data) {
-          $("#modal_target").html(data);
-          $("#modal").modal("toggle");
-          $("#foto").change(function () {
-            readURL(this, "priv");
-          });
-          //FORM EDIT DATA USER
-          $("form#editus").submit(function (e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-              url: baseurl + "Usermanager/edituser",
-              type: "POST",
-              data: formData,
-              success: function (data) {
-                toastr.success(data, "Sukses");
-                reload_user();
-              },
-              error: function (xhr, ajaxOptions, thrownError) {
-                toastr.error(thrownError, "ERROR");
-              },
-              cache: false,
-              contentType: false,
-              processData: false,
-            });
-          });
-        } else {
-          console.log(data);
-        }
-      },
-      error: function () {
-        toastr.options.onHidden = function () {
-          window.location.reload();
-        };
-        toastr.error("Terjadi Kesalahan Silakan Coba lagi", "ERROR");
-      },
-    });
+    console.log(data);
+    // $.ajax({
+    //   type: "GET",
+    //   dataType: "text",
+    //   url: baseurl + "useredit/" + data["id_ngota"],
+    //   cache: false,
+    //   success: function (data) {
+    //     if (data) {
+    //       $("#modal_target").html(data);
+    //       $("#modal").modal("toggle");
+    //       $("#foto").change(function () {
+    //         readURL(this, "priv");
+    //       });
+    //       //FORM EDIT DATA USER
+    //       $("form#editus").submit(function (e) {
+    //         e.preventDefault();
+    //         var formData = new FormData(this);
+    //         $.ajax({
+    //           url: baseurl + "Usermanager/edituser",
+    //           type: "POST",
+    //           data: formData,
+    //           success: function (data) {
+    //             toastr.success(data, "Sukses");
+    //             reload_user();
+    //           },
+    //           error: function (xhr, ajaxOptions, thrownError) {
+    //             toastr.error(thrownError, "ERROR");
+    //           },
+    //           cache: false,
+    //           contentType: false,
+    //           processData: false,
+    //         });
+    //       });
+    //     } else {
+    //       console.log(data);
+    //     }
+    //   },
+    //   error: function () {
+    //     toastr.options.onHidden = function () {
+    //       window.location.reload();
+    //     };
+    //     toastr.error("Terjadi Kesalahan Silakan Coba lagi", "ERROR");
+    //   },
+    // });
   });
   $("#tabeluser tbody").on("click", "#deluser", function () {
     var data = tabeluser.row($(this).parents("tr")).data();

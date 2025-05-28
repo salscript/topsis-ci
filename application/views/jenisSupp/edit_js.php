@@ -5,12 +5,12 @@
 </div>
 <div class="modal-body">
   <div class="box-body">
-    <form id="editk" class="form-horizontal" method="post">
+    <form id="editjs" class="form-horizontal" method="post">
       <div class="form-group">
-        <input type="hidden" name="idjs" value="<?= $datajs->id ?>">
+        <input type="hidden" name="idjs" value="<?=$datajs->id?>">
         <label for="nama" class="col-sm-2 control-label">Nama</label>
         <div class="col-sm-10">
-          <input type="text" name="nama" class="form-control" id="nama" value="<?= $datajs->nama ?>" required>
+          <input type="text" name="nama" class="form-control" id="nama" value="<?=$datajs->nama?>" required>
         </div>
       </div>
       <div class="form-group">
