@@ -156,7 +156,19 @@
                 <i class="fa fa-pie-chart"></i> <span>Data Alternatif</span>
             </a>
         </li>
+        <?php } ?>
+        
+    <?php
+    if ($_SESSION['role'] == 'ADMIN') {
+    ?>
+        <li>
+            <a href="<?= base_url('JenisSupplier') ?>" id="jenisSupp">
+                <i class="fa fa-pie-chart"></i> <span>Data Jenis Supplier</span>
+            </a>
+        </li>
+
     <?php } ?>
+
     <?php
     if ($_SESSION['role'] != 'SUPPLIER') {
     ?>

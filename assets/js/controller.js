@@ -15,6 +15,157 @@ $(document).ready(function () {
   });
   //TABEL UMUM
   $("table.table-striped").DataTable();
+
+  //Tabel Jenis Supplier
+  var tabelJenisSupp = $("#tabelJenisSupp").DataTable({
+    ajax: { url: baseurl + "userjson", dataSrc: "" },
+    columns: [
+      { data: "nomor" },
+      { data: "nama" },
+      {
+        data: "",
+        render: function () {
+          return (
+            '<div class="btn-group btn-block">' +
+            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+            '<i class="fa fa-gears"></i> Opsi  ' +
+            '<span class="caret"></span>' +
+            '<span class="sr-only"> Toggle Dropdown</span>' +
+            '</button><ul class="dropdown-menu" role="menu">' +
+            '<li><a href="javascript:void(0)" id="editjs">Edit</a></li>' +
+            '<li><a href="javascript:void(0)" id="deljs">Hapus</a></li>' +
+            "</ul></div>"
+          );
+        },
+      },
+    ],
+  });
+  $("#tabelJenisSupp tbody").on("click", "#editjs", function () {
+    var data = tabelJenisSupp.row($(this).parents("tr")).data();
+    $.ajax({
+      type: "GET",
+      dataType: "text",
+      url: baseurl + "useredit/" + data["id_ngota"],
+      cache: false,
+      success: function (data) {
+        if (data) {
+          $("#modal_target").html(data);
+          $("#modal").modal("toggle");
+          $("#foto").change(function () {
+            readURL(this, "priv");
+          });
+          //FORM EDIT DATA USER
+          $("form#editus").submit(function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+              url: baseurl + "Usermanager/edituser",
+              type: "POST",
+              data: formData,
+              success: function (data) {
+                toastr.success(data, "Sukses");
+                reload_user();
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                toastr.error(thrownError, "ERROR");
+              },
+              cache: false,
+              contentType: false,
+              processData: false,
+            });
+          });
+        } else {
+          console.log(data);
+        }
+      },
+      error: function () {
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+        toastr.error("Terjadi Kesalahan Silakan Coba lagi", "ERROR");
+      },
+    });
+  });
+  $("#tabelJenisSupp tbody").on("click", "#deljs", function () {
+    var data = tabelJenisSupp.row($(this).parents("tr")).data();
+    $.confirm({
+      title: "Hapus Data",
+      columnClass: "medium",
+      content:
+        '<strong style="font-size: 20px;">Apakah Anda yakin ingin menghapus data ini ?</strong>',
+      type: "red",
+      buttons: {
+        hapus: {
+          text: "Ya , Hapus Data",
+          btnClass: "btn-danger",
+          action: function () {
+            var options = {
+              url: baseurl + "Usermanager/deluser/",
+              dataType: "text",
+              type: "POST",
+              data: { iduser: data["id_ngota"] },
+              success: function (data) {
+                toastr.options.onHidden = function () {
+                  tabeluser.ajax.reload();
+                };
+                toastr.success(data, "Sukses");
+                // tabeldosen.ajax.reload();
+              },
+              error: function (xhr, status, error) {
+                toastr.options.onHidden = function () {
+                  window.location.reload();
+                };
+                toastr.error("Terjadi Kesalahan Silakan Coba lagi", "ERROR");
+              },
+            };
+            $.ajax(options);
+          },
+        },
+        batal: {
+          text: "Batal",
+          btnClass: "btn-blue",
+          action: function () {},
+        },
+      },
+    });
+  });
+
+  //ADD JENIS SUPPLIER
+  $("#jenisSuppAdd").click(function () {
+    console.log("tombol add clicked");
+    $.ajax({
+      type: "GET",
+      url: baseurl + "JenisSupplier/addJenSup",
+      cache: false,
+      success: function (data) {
+        $("#modal_target").html(data);
+        $("#modal").modal("toggle");
+        $("form#addjs").submit(function (e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+          $.ajax({
+            url: baseurl + "JenisSupplier/addJenSup",
+            type: "POST",
+            data: formData,
+            success: function (data) {
+              toastr.success(data, "Sukses");
+              reload_user();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              toastr.error(thrownError, "ERROR");
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+          });
+        });
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        toastr.error(thrownError, "ERROR");
+      },
+    });
+  });
+
   //TABEL USER
   var tabeluser = $("#tabeluser").DataTable({
     ajax: { url: baseurl + "userjson", dataSrc: "" },
@@ -154,6 +305,7 @@ $(document).ready(function () {
 
   //ADD USER
   $("#useradd").click(function () {
+    console.log("add user button clicked");
     $.ajax({
       type: "GET",
       url: baseurl + "Usermanager/adduser",
@@ -251,30 +403,30 @@ $(document).ready(function () {
 
   //TABEL PERIODE
 
-  // var tabelperiode = $("#tabelperiode").DataTable({
-  //   ajax: { url: baseurl + "Periode/listperiode", dataSrc: "" },
-  //   columns: [
-  //     { data: "nomor" },
-  //     { data: "tgl_mulai" },
-  //     { data: "tgl_selesai" },
-  //     {
-  //       data: "",
-  //       render: function () {
-  //         return (
-  //           '<div class="btn-group btn-block">' +
-  //           '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
-  //           '<i class="fa fa-gears"></i> Opsi  ' +
-  //           '<span class="caret"></span>' +
-  //           '<span class="sr-only"> Toggle Dropdown</span>' +
-  //           '</button><ul class="dropdown-menu" role="menu">' +
-  //           '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
-  //           '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
-  //           "</ul></div>"
-  //         );
-  //       },
-  //     },
-  //   ],
-  // });
+  /**var tabelperiode = $("#tabelperiode").DataTable({
+    ajax: { url: baseurl + "Periode/listperiode", dataSrc: "" },
+    columns: [
+      { data: "nomor" },
+      { data: "tgl_mulai" },
+      { data: "tgl_selesai" },
+      {
+        data: "",
+        render: function () {
+          return (
+            '<div class="btn-group btn-block">' +
+            '<button type="button" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">' +
+            '<i class="fa fa-gears"></i> Opsi  ' +
+            '<span class="caret"></span>' +
+            '<span class="sr-only"> Toggle Dropdown</span>' +
+            '</button><ul class="dropdown-menu" role="menu">' +
+            '<li><a href="javascript:void(0)" id="editp">Edit</a></li>' +
+            '<li><a href="javascript:void(0)" id="delp">Hapus</a></li>' +
+            "</ul></div>"
+          );
+        },
+      },
+    ],
+  });*/
 
   let columnPeriode = [
     { data: "nomor" },
