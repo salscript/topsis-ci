@@ -38,6 +38,7 @@ class JenisSupplier extends MY_Controller
 	}
 
 	function editJenSupp($idjs=NULL){
+		// print_r($idjs);
 		if($idjs==NULL){
 			if(isset($_POST) && count($_POST) > 0){
 				$idjs=$this->input->post('idjs');
@@ -58,19 +59,20 @@ class JenisSupplier extends MY_Controller
 		}
 		else{
 			$data['datajs']=$this->JenSup->get($idjs);
+			// print_r($idjs);
 			$this->load->view('jenisSupp/edit_js',$data);
 		}
 	}
 
-	function removekriteria(){
+	function removeJenSupp(){
 		if(isset($_POST) && count($_POST) > 0){
-			$idjs=$this->input->post('js');
-			$cekperiod=array(
+			$idjs=$this->input->post('idjs');
+			$cekJenSupp=array(
 				'id'=> $idjs,
 			);
-			$available=$this->Krite->delete($cekperiod);
+			$available=$this->JenSup->delete($cekJenSupp);
 			// print_r($_POST);
-			if($available){
+			if($available){ 
 					echo "Data berhasil di Hapus";
 			}
 			else{

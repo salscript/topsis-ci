@@ -38,6 +38,7 @@ class Kriteria extends MY_Controller
 	}
 
 	function editkriteria($idkrit=NULL){
+		// print_r($idkrit);
 		if($idkrit==NULL){
 			if(isset($_POST) && count($_POST) > 0){
 				$id_krit=$this->input->post('idkri');
